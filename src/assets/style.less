@@ -1,0 +1,38 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+#root {
+    padding:10px;
+}
+
+#add-forms {
+    display:flex;
+
+    #manual-add-form, #add-list-form {
+        display:flex;
+        flex-direction: column;
+        width:300px;
+        margin-bottom:20px;
+        margin-right:40px;
+    
+        button {
+            align-self: flex-end;
+        }
+    }
+}
+
+#ads-lists {
+    display: flex;
+    flex-wrap: wrap;
+
+    .ads-list {
+        max-width:600px;
+        margin-right:40px;
+    }
+}
+
