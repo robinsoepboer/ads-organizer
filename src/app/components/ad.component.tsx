@@ -1,6 +1,7 @@
 import * as React from "react";
 import Ad from '../models/ad';
 import TextareaAutosize from 'react-autosize-textarea';
+import Store from '../stores/app.store';
 
 interface IProps {
     ad: Ad;
@@ -35,6 +36,6 @@ export class AdComponent extends React.Component<IProps, IState> {
         let ad = this.props.ad;
         ad.description = event.target.value;
         
-        //dispatch action
+        
     }
 }

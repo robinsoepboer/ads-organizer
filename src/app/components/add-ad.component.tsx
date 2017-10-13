@@ -1,5 +1,6 @@
 import * as React from "react";
 import Ad from '../models/ad';
+import Store from '../stores/app.store';
 
 interface IProps {
 }
@@ -41,11 +42,12 @@ export class AddAdComponent extends React.Component<IProps, IState> {
     }
 
     handleClick(){
-        //dispatch
-        
-        this.setState({
-            title:'',
-            link:''
+        Store.dispatch({
+            type: 'ADD_AD',
+            ad: new Ad(this.state.title, this.state.link),
+            listId: 0
         })
+        
+        this.setState({title:'', link:''});
     }
 }
