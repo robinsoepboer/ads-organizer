@@ -5,6 +5,7 @@ import Store from '../stores/app.store';
 
 interface IProps {
     ad: Ad;
+    listId:number;    
 }
 
 interface IState {
@@ -35,7 +36,12 @@ export class AdComponent extends React.Component<IProps, IState> {
     handleChanges(event){
         let ad = this.props.ad;
         ad.description = event.target.value;
-        
-        
+        this.props.ad.description = event.target.value;
+
+        Store.dispatch({
+            type: 'UPDATE_ADD',
+            ad: ad,
+            listId: this.props.listId
+        })
     }
 }

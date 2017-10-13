@@ -41,13 +41,13 @@ export class AddAdComponent extends React.Component<IProps, IState> {
         );
     }
 
-    handleClick(){
+    handleClick() {
         Store.dispatch({
             type: 'ADD_AD',
             ad: new Ad(this.state.title, this.state.link),
             listId: 0
         })
-        
-        this.setState({title:'', link:''});
+
+        this.setState({ title: '', link: '' });
     }
 }

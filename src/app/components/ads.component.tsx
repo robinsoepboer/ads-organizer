@@ -12,9 +12,7 @@ export class AdsComponent extends React.Component<IProps, {}> {
 
         var listItems = this.props.adsList.ads.map((item) => {
             return (
-                <AdComponent key={item.link} 
-                    ad={item} >
-                </AdComponent>
+                <AdComponent key={item.link} ad={item} listId={this.props.adsList.id} />
             );
         });
 
