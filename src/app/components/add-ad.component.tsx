@@ -2,7 +2,6 @@ import * as React from "react";
 import Ad from '../models/ad';
 
 interface IProps {
-    handleClick: Function;
 }
 
 interface IState {
@@ -42,7 +41,7 @@ export class AddAdComponent extends React.Component<IProps, IState> {
     }
 
     handleClick(){
-        this.props.handleClick(new Ad(this.state.title, this.state.link));
+        //dispatch
         
         this.setState({
             title:'',

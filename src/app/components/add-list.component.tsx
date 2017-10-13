@@ -3,7 +3,6 @@ import AdsList from '../models/adsList';
 import Store from '../stores/app.store';
 
 interface IProps {
-    handleClick: Function;
 }
 
 interface IState {
@@ -19,18 +18,6 @@ export class AddListComponent extends React.Component<IProps, IState> {
         this.state = {
             title: ''
         }
-    }
-
-    componentDidMount() {
-        this.unsubscribe = Store.subscribe(this.handleChange.bind(this));
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe()
-    }
-
-    handleChange() {
-        this.forceUpdate();
     }
 
     render(): JSX.Element {
