@@ -26,11 +26,11 @@ export class TwoComponent extends React.Component<{}, IState> {
     }
 
     componentDidMount() {
-        let adsLists = Store.getState();
+        let adsLists = Store.getState().adsLists;
 
-        // if (adsLists.length === 0) {
-        //     adsLists.push(new AdsList(0, 'Default - Ads'));
-        // }
+        if (adsLists.length === 0) {
+            adsLists.push(new AdsList(0, 'Default - Ads'));
+        }
 
         if (this.state.adsLists)
             this.setState({ adsLists: adsLists });
@@ -39,13 +39,12 @@ export class TwoComponent extends React.Component<{}, IState> {
     }
 
     componentWillUnmount() {
-        // and unsubscribe later
         this.unsubscribe()
     }
 
     handleChange() {
         this.setState({
-            adsLists: Store.getState()
+            adsLists: Store.getState().adsLists
         });
     }
 

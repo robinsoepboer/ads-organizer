@@ -1,14 +1,15 @@
 import Ad from '../models/ad';
 import AdsList from '../models/adsList';
+import AppState from '../models/appstate';
 
 export default class AdsService {
-    get(): AdsList[] {
-        let adsString: string = localStorage.getItem('Two.AdsLists');
-        let ads = (adsString) ? JSON.parse(adsString) as AdsList[] : new Array<AdsList>();
-        return ads;
+    get(): AppState {
+        let stateString: string = localStorage.getItem('Two.AppState');
+        let state = (stateString) ? JSON.parse(stateString) as AppState : new AppState();
+        return state;
     }
 
-    save(adsLists: AdsList[]){
-        localStorage.setItem('Two.AdsLists', JSON.stringify(adsLists));        
+    save(state: AppState): void {
+        localStorage.setItem('Two.AppState', JSON.stringify(state));        
     }
 }

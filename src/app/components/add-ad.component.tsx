@@ -8,6 +8,7 @@ interface IProps {
 interface IState {
     title: string;
     link: string;
+    listId: number;
 }
 
 export class AddAdComponent extends React.Component<IProps, IState> {
@@ -16,7 +17,8 @@ export class AddAdComponent extends React.Component<IProps, IState> {
 
         this.state = {
             title: '',
-            link: ''
+            link: '',
+            listId: 0
         }
     }
 
@@ -25,27 +27,43 @@ export class AddAdComponent extends React.Component<IProps, IState> {
             <div id="manual-add-form">
                 <h2>Add Ad</h2>
                 <div className="form-group">
-                    <label>
-                        Title:
-                        <input type="text" value={this.state.title} onChange={event => this.setState({ title: event.target.value })} />
-                    </label>
+                    <label htmlFor="ad-title">Title:</label>
+                    <input id="ad-title" type="text" value={this.state.title} onChange={event => this.setState({ title: event.target.value })} />
                 </div>
                 <div className="form-group">
-                    <label >
-                        Link:
-                        <input type="text" value={this.state.link} onChange={event => this.setState({ link: event.target.value })} />
-                    </label>
+                    <label htmlFor="ad-link">Link:</label>
+                    <input id="ad-link" type="text" value={this.state.link} onChange={event => this.setState({ link: event.target.value })} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="ad-list-id">List:</label>
+                    {this.renderListSelect()}
                 </div>
                 <button onClick={() => this.handleClick()}>add</button>
             </div>
         );
     }
 
-    handleClick() {
+    renderListSelect(): JSX.Element {
+        var listItems = Store.getState().adsLists.map((item) => {
+            return (
+                <option key={item.id} value={item.id}>{item.title}</option>
+            );
+        });
+
+        return (
+            <select id="ad-list-id" 
+                value={this.state.listId} 
+                onChange={event => this.setState({ listId: Number(event.target.value) }) }>
+                {listItems}
+            </select>
+        );
+    }
+
+    handleClick(): void {
         Store.dispatch({
             type: 'ADD_AD',
             ad: new Ad(this.state.title, this.state.link),
-            listId: 0
+            listId: this.state.listId
         })
 
         this.setState({ title: '', link: '' });

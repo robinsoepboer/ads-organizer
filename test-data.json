@@ -1,24 +1,32 @@
-[
-    {
-        "title": "2003 Ford Windstar Minivan, Van",
-        "link": "https://vancouver.craigslist.ca/van/cto/d/2003-ford-windstar-minivan-van/6334349982.html",
-        "id": 0,
-        "description": "this is my own car, not sold yet but there's been some interest. Hopefully I can sell it sooner rather than later."
-    },
-    {
-        "title": " 2br - 820ft2 - 2 Bed, 1 Bath 100% Renovated Barclay Tower 15th floor",
-        "link": "https://vancouver.craigslist.ca/van/apa/d/2-bed-1-bath-100-renovated/6324143178.html",
-        "id": 1,
-        "description": "Apartment being renovated"
-    },
-    {
-        "title": "Large Antique 1907 Iroquois Indian Folk Art Beaded Bird Strawberries P",
-        "link": "https://vancouver.craigslist.ca/van/atq/d/large-antique-1907-iroquois/6326690836.html",
-        "id": 2
-    },
-    {
-        "title": "Furnished 2 bedrooms 2 bathrooms beautiful View (Kits)",
-        "link": "https://vancouver.craigslist.ca/van/apa/d/furnished-2-bedrooms-2/6289155790.html",
-        "id": 3
-    }
-]
+{
+    "adsLists": [
+        {   
+            "id":0,
+            "title": "Default - ads",
+            "ads": [
+                {
+                    "title": "2003 Ford Windstar Minivan, Van",
+                    "link": "https://vancouver.craigslist.ca/van/cto/d/2003-ford-windstar-minivan-van/6334349982.html",
+                    "id": 0,
+                    "description": "this is my own car, not sold yet but there's been some interest. Hopefully I can sell it sooner rather than later."
+                },
+                {
+                    "title": " 2br - 820ft2 - 2 Bed, 1 Bath 100% Renovated Barclay Tower 15th floor",
+                    "link": "https://vancouver.craigslist.ca/van/apa/d/2-bed-1-bath-100-renovated/6324143178.html",
+                    "id": 1,
+                    "description": "Apartment being renovated"
+                },
+                {
+                    "title": "Large Antique 1907 Iroquois Indian Folk Art Beaded Bird Strawberries P",
+                    "link": "https://vancouver.craigslist.ca/van/atq/d/large-antique-1907-iroquois/6326690836.html",
+                    "id": 2
+                },
+                {
+                    "title": "Furnished 2 bedrooms 2 bathrooms beautiful View (Kits)",
+                    "link": "https://vancouver.craigslist.ca/van/apa/d/furnished-2-bedrooms-2/6289155790.html",
+                    "id": 3
+                }
+            ]
+        }
+    ]
+}

@@ -1,18 +1,15 @@
 import AdsList from '../models/adsList';
+import AppState from '../models/appstate';
 import { createStore, Store, Action } from 'redux';
 import AdsService from '../services/ads.service';
 
 let adsService: AdsService = new AdsService();
-let store: Store<AdsList[]> = createStore((state, action) => reducer(state, action));
+let store: Store<AppState> = createStore((state, action) => mainReducer(state, action));
 
-function reducer(state: AdsList[], action): AdsList[] {
-    if (!state) {
-        state = adsService.get();
-    }
-
+function adsListsReducer(state: AdsList[], action): AdsList[] {
     switch (action.type) {
         case 'ADD_LIST':
-            return [...state, new AdsList(0, action.listTitle)];
+            return [...state, new AdsList(state.length, action.listTitle)];
         case 'ADD_AD':
             let newState = [...state] as AdsList[];
             newState[action.listId].ads = [...newState[action.listId].ads, action.ad]
@@ -23,6 +20,16 @@ function reducer(state: AdsList[], action): AdsList[] {
             return updatedState;
         default:
             return state;
+    }
+}
+
+function mainReducer(state: AppState, action): AppState {
+    if (!state) {
+        state = adsService.get();
+    }
+
+    return {
+        adsLists: adsListsReducer(state.adsLists, action)
     }
 }
 

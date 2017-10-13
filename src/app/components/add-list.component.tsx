@@ -25,10 +25,8 @@ export class AddListComponent extends React.Component<IProps, IState> {
             <div id="add-list-form">
                 <h2>add list</h2>
                 <div className="form-group">
-                    <label>
-                        Title:
-                        <input type="text" value={this.state.title} onChange={event => this.setState({ title: event.target.value })} />
-                    </label>
+                    <label htmlFor="list-title">Title:</label>
+                    <input id="list-title" type="text" value={this.state.title} onChange={event => this.setState({ title: event.target.value })} />
                 </div>
                 <button onClick={() => this.handleClick()}>add</button>
             </div>

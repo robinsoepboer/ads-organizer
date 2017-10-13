@@ -1,21 +1,25 @@
 /* Form Controls */
 .form-group {
     margin:5px 0;
+    display:flex; 
 
     label {
         font-size:20px;
-        display:flex;   
+        flex-grow: 0.1; 
+    }
+
+    input, select {
+        flex-grow: 1;
     }
 }
 
-input {
+input, select {
     padding: 5px;
     color: #464a4c;
     background-color: #fff;
     border: 1px solid rgba(0,0,0,.15);
     border-radius: 2px;
     margin-left:5px;
-    flex-grow:1;
 }
 
 textarea {
