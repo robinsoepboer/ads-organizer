@@ -4,7 +4,6 @@ import TextareaAutosize from 'react-autosize-textarea';
 
 interface IProps {
     ad: Ad;
-    handleChanges: Function;
 }
 
 interface IState {
@@ -35,6 +34,7 @@ export class AdComponent extends React.Component<IProps, IState> {
     handleChanges(event){
         let ad = this.props.ad;
         ad.description = event.target.value;
-        this.props.handleChanges(ad);
+        
+        //dispatch action
     }
 }

@@ -53,7 +53,7 @@ export class TwoComponent extends React.Component<{}, IState> {
 
         var listItems = this.state.adsLists.map((item) => {
             return (
-                <AdsComponent key={item.id} adsList={item} handleChanges={(listId, ad) => {}} />
+                <AdsComponent key={item.id} adsList={item} />
             );
         });
 

@@ -5,7 +5,6 @@ import AdsList from '../models/adsList';
 
 interface IProps {
     adsList: AdsList;
-    handleChanges: Function;
 }
 
 export class AdsComponent extends React.Component<IProps, {}> {
@@ -14,8 +13,7 @@ export class AdsComponent extends React.Component<IProps, {}> {
         var listItems = this.props.adsList.ads.map((item) => {
             return (
                 <AdComponent key={item.link} 
-                    ad={item} 
-                    handleChanges={(ad) => this.props.handleChanges(this.props.adsList.id, ad)}>
+                    ad={item} >
                 </AdComponent>
             );
         });
