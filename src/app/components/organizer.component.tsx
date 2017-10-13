@@ -13,7 +13,7 @@ interface IState {
     adsLists: AdsList[];
 }
 
-export class TwoComponent extends React.Component<{}, IState> {
+export class OrganizerComponent extends React.Component<{}, IState> {
 
     unsubscribe;
 

@@ -1,14 +1,14 @@
-import "../assets/main.less";
+import "../styles/main.less";
 import "file-loader?name=index.html!../index.html";
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { TwoComponent } from "./components/two.component";
+import { OrganizerComponent } from "./components/organizer.component";
 import Ad from './models/ad';
 
 ReactDOM.render(
     <div>
-        <TwoComponent />
+        <OrganizerComponent />
     </div>,
     document.getElementById("root")
 );
