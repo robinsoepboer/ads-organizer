@@ -1,5 +1,6 @@
 import * as React from "react";
 import AdsList from '../models/adsList';
+import Store from '../stores/app.store';
 
 interface IProps {
     handleClick: Function;
@@ -10,12 +11,26 @@ interface IState {
 }
 
 export class AddListComponent extends React.Component<IProps, IState> {
+    unsubscribe;
+
     constructor(props: {}, context: any) {
         super();
 
         this.state = {
             title: ''
         }
+    }
+
+    componentDidMount() {
+        this.unsubscribe = Store.subscribe(this.handleChange.bind(this));
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe()
+    }
+
+    handleChange() {
+        this.forceUpdate();
     }
 
     render(): JSX.Element {
@@ -34,10 +49,11 @@ export class AddListComponent extends React.Component<IProps, IState> {
     }
 
     handleClick(){
-        this.props.handleClick(new AdsList(0, this.state.title));
-        
-        this.setState({
-            title:''
-        })
+        Store.dispatch({
+            type: 'ADD_LIST',
+            listTitle: this.state.title
+        });
+
+        this.setState({title: ''});
     }
 }
