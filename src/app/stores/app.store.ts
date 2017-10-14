@@ -3,8 +3,19 @@ import AppState from '../models/appstate';
 import { createStore, Store, Action } from 'redux';
 import AdsService from '../services/ads.service';
 
+let store: Store<AppState>;
 let adsService: AdsService = new AdsService();
-let store: Store<AppState> = createStore((state, action) => mainReducer(state, action));
+
+async function getAsyncData(): Promise<any> {
+    return await adsService.get().then((data) => {
+        if(data.appState && !(Object.keys(data.appState).length === 0 && data.appState.constructor === Object)){
+            store.dispatch({
+                type: 'DATA_RETRIEVED_FROM_CHROME_STORAGE',
+                appState: data.appState as AppState
+            });
+        }
+    })
+}
 
 function adsListsReducer(state: AdsList[], action): AdsList[] {
     switch (action.type) {
@@ -25,7 +36,11 @@ function adsListsReducer(state: AdsList[], action): AdsList[] {
 
 function mainReducer(state: AppState, action): AppState {
     if (!state) {
-        state = adsService.get();
+        state = new AppState();
+    }
+
+    if(action.type === 'DATA_RETRIEVED_FROM_CHROME_STORAGE' && action.appState){
+        state = action.appState;
     }
 
     return {
@@ -33,8 +48,13 @@ function mainReducer(state: AppState, action): AppState {
     }
 }
 
+
+getAsyncData();
+
+store = createStore((state, action) => mainReducer(state, action));
+
 store.subscribe(() => {
     adsService.save(store.getState());
-})
+});
 
 export default store;

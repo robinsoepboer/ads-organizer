@@ -3,6 +3,7 @@ import Ad from '../models/ad';
 import Store from '../stores/app.store';
 
 interface IProps {
+    organizerLink: boolean;
 }
 
 interface IState {
@@ -19,6 +20,12 @@ export class AddAdComponent extends React.Component<IProps, IState> {
             title: '',
             link: '',
             listId: 0
+        }
+    }
+
+    componentDidMount() {
+        if(chrome && chrome.tabs){
+            chrome.tabs.getSelected(null, (tab) => this.preFillFields(tab));
         }
     }
 
@@ -39,16 +46,22 @@ export class AddAdComponent extends React.Component<IProps, IState> {
                     {this.renderListSelect()}
                 </div>
                 <button onClick={() => this.handleClick()}>add</button>
+                {this.renderOrganizerLink()}
             </div>
         );
     }
 
     renderListSelect(): JSX.Element {
-        var listItems = Store.getState().adsLists.map((item) => {
-            return (
-                <option key={item.id} value={item.id}>{item.title}</option>
-            );
-        });
+        let listItems; 
+        let adsLists = Store.getState().adsLists;
+
+        if(adsLists){
+            listItems = adsLists.map((item) => {
+                return (
+                    <option key={item.id} value={item.id}>{item.title}</option>
+                );
+            });
+        }
 
         return (
             <select id="ad-list-id" 
@@ -59,6 +72,15 @@ export class AddAdComponent extends React.Component<IProps, IState> {
         );
     }
 
+    renderOrganizerLink(): JSX.Element{
+        if(this.props.organizerLink){
+            return (
+                <a id="organizer-link" onClick={() => this.goToOrganizer()}>Go to organizer</a>
+            );
+        }
+        return;
+    }
+
     handleClick(): void {
         Store.dispatch({
             type: 'ADD_AD',
@@ -67,5 +89,21 @@ export class AddAdComponent extends React.Component<IProps, IState> {
         })
 
         this.setState({ title: '', link: '' });
+    }
+
+    goToOrganizer(): void {
+        if(!chrome || !chrome.tabs)
+            return;
+
+        chrome.tabs.create({url: '/index.html'});
+    }
+
+    preFillFields(tab: chrome.tabs.Tab): void {
+        if(tab.title && tab.url){
+            this.setState({
+                title: tab.title,
+                link: tab.url
+            });
+        }
     }
 }

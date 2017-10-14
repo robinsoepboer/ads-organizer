@@ -3,13 +3,29 @@ import AdsList from '../models/adsList';
 import AppState from '../models/appstate';
 
 export default class AdsService {
-    get(): AppState {
-        let stateString: string = localStorage.getItem('Two.AppState');
-        let state = (stateString) ? JSON.parse(stateString) as AppState : new AppState();
-        return state;
+    get(): Promise<any> {
+
+        const promise = new Promise<any>((resolve, reject) => {           
+            if(chrome && chrome.storage){
+                chrome.storage.local.get((data) => {
+                    resolve(data);
+                });
+            }
+            else {
+                var data = localStorage.getItem('appState');
+                resolve(JSON.parse(data) as AppState)
+            }                
+        });
+
+        return promise;
     }
 
     save(state: AppState): void {
-        localStorage.setItem('Two.AppState', JSON.stringify(state));        
+        if(chrome && chrome.storage){
+            chrome.storage.local.set({'appState': state});
+        }
+        else {
+            localStorage.setItem('appState', JSON.stringify(state));
+        }
     }
 }

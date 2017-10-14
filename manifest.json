@@ -1,0 +1,17 @@
+{
+    "manifest_version": 2,
+  
+    "name": "Ads Organizer",
+    "description": "This extension allows the user to change the background color of the current page.",
+    "version": "1.0",
+  
+    "browser_action": {
+      "default_icon": "browser-action.png",
+      "default_popup": "browser-action.html",
+      "default_title": "Add this website to the Ads Organizer"
+    },
+    "permissions": [
+      "activeTab",
+      "storage"
+    ]
+  }

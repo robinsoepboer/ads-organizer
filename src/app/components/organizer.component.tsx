@@ -49,17 +49,20 @@ export class OrganizerComponent extends React.Component<{}, IState> {
     }
 
     render(): JSX.Element {
+        let listItems;
 
-        var listItems = this.state.adsLists.map((item) => {
-            return (
-                <AdsComponent key={item.id} adsList={item} />
-            );
-        });
+        if(this.state.adsLists){
+            listItems = this.state.adsLists.map((item) => {
+                return (
+                    <AdsComponent key={item.id} adsList={item} />
+                );
+            });    
+        }
 
         return (
             <div>
                 <div id="add-forms">
-                    <AddAdComponent />
+                    <AddAdComponent organizerLink={false} />
                     <AddListComponent />
                 </div>
                 <div id="ads-lists">

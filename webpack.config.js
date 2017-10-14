@@ -6,10 +6,12 @@ const extractLess = new ExtractTextPlugin({
 });
 
 module.exports = {
-    entry: "./src/app/app.tsx",
+    entry: {
+        "main": "./src/app/app.tsx"
+    },
     output: {
         path: path.resolve(__dirname, "build"),
-        filename: "bundle.js"
+        filename: "[name].js"
     },
     devtool: "source-map",
     resolve: {
