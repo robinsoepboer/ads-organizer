@@ -1,4 +1,4 @@
-import "./file-imports";
+import "./app.file-imports";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { OrganizerComponent } from "./components/organizer.component";
