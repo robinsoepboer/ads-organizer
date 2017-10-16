@@ -1,7 +1,7 @@
 import * as React from "react";
 import Ad from '../models/ad';
 import TextareaAutosize from 'react-autosize-textarea';
-import Store from '../stores/app.store';
+import Store from '../app.store';
 
 interface IProps {
     ad: Ad;

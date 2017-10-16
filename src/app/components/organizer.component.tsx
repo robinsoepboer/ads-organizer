@@ -6,8 +6,7 @@ import { AddListComponent } from "./add-list.component";
 
 import AdsList from '../models/adsList';
 import Ad from '../models/ad';
-import AdsService from '../services/ads.service';
-import Store from '../stores/app.store';
+import Store from '../app.store';
 
 interface IState {
     adsLists: AdsList[];
@@ -18,7 +17,7 @@ export class OrganizerComponent extends React.Component<{}, IState> {
     unsubscribe;
 
     constructor(props: {}, context: any) {
-        super();
+        super();        
 
         this.state = {
             adsLists: []
@@ -71,4 +70,6 @@ export class OrganizerComponent extends React.Component<{}, IState> {
             </div>
         );
     }
+
+    
 }

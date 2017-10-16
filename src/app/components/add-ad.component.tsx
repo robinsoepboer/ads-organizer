@@ -1,6 +1,7 @@
 import * as React from "react";
 import Ad from '../models/ad';
-import Store from '../stores/app.store';
+import Store from '../app.store';
+import AdsService from '../services/ads.service';
 
 interface IProps {
     organizerLink: boolean;
@@ -35,7 +36,11 @@ export class AddAdComponent extends React.Component<IProps, IState> {
                 <h2>Add Ad</h2>
                 <div className="form-group">
                     <label htmlFor="ad-title">Title:</label>
-                    <input id="ad-title" type="text" value={this.state.title} onChange={event => this.setState({ title: event.target.value })} />
+                    <input id="ad-title" type="text" 
+                           value={this.state.title} 
+                           onChange={event => this.setState({ title: event.target.value })} 
+                           onKeyDown={event => this.AddTestDataToApplication(event)}
+                           />
                 </div>
                 <div className="form-group">
                     <label htmlFor="ad-link">Link:</label>
@@ -104,6 +109,14 @@ export class AddAdComponent extends React.Component<IProps, IState> {
                 title: tab.title,
                 link: tab.url
             });
+        }
+    }
+
+    //Method fills application with test data for convience during development
+    AddTestDataToApplication(event: React.KeyboardEvent<HTMLInputElement>){
+        if(event.ctrlKey && event.keyCode === 89){
+            let adsService = new AdsService();
+            adsService.saveTestData();
         }
     }
 }

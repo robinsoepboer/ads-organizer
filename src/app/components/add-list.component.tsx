@@ -1,6 +1,6 @@
 import * as React from "react";
 import AdsList from '../models/adsList';
-import Store from '../stores/app.store';
+import Store from '../app.store';
 
 interface IProps {
 }

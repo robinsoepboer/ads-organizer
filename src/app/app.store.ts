@@ -1,20 +1,27 @@
-import AdsList from '../models/adsList';
-import AppState from '../models/appstate';
+import AdsList from './models/adsList';
+import AppState from './models/appstate';
 import { createStore, Store, Action } from 'redux';
-import AdsService from '../services/ads.service';
+import AdsService from './services/ads.service';
 
 let store: Store<AppState>;
 let adsService: AdsService = new AdsService();
 
+//Get application state from storage, this is an async function and data will be loaded into the app later
+//by firing of the 'DATA_RETRIEVED_FROM_CHROME_STORAGE' action
 async function getAsyncData(): Promise<any> {
-    return await adsService.get().then((data) => {
-        if(data.appState && !(Object.keys(data.appState).length === 0 && data.appState.constructor === Object)){
+    return await adsService.get().then((appState) => {
+        if(appState && !isEmptyObject(appState)){
             store.dispatch({
                 type: 'DATA_RETRIEVED_FROM_CHROME_STORAGE',
-                appState: data.appState as AppState
+                appState: appState as AppState
             });
         }
     })
+}
+
+//function to check if an object has zero properties
+function isEmptyObject(object: Object): boolean {
+    return (Object.keys(object).length === 0 && object.constructor === Object);
 }
 
 function adsListsReducer(state: AdsList[], action): AdsList[] {
@@ -53,6 +60,7 @@ getAsyncData();
 
 store = createStore((state, action) => mainReducer(state, action));
 
+//Save data back to storage on every change
 store.subscribe(() => {
     adsService.save(store.getState());
 });
