@@ -3,7 +3,9 @@ import AdsList from '../models/adsList';
 function adsListsReducer(state: AdsList[], action): AdsList[] {
     switch (action.type) {
         case 'ADD_LIST':
-            return [...state, new AdsList(state.length, action.listTitle)];
+            return [...state, 
+                new AdsList(state.length, action.listTitle)
+            ];
         case 'ADD_AD':
             let newState = [...state] as AdsList[];
             newState[action.listId].ads = [...newState[action.listId].ads, action.ad]

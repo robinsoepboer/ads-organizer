@@ -3,6 +3,7 @@ import AppState from './models/appstate';
 import { createStore, Store, Action } from 'redux';
 import AdsService from './services/ads.service';
 import mainReducer from './reducers/main.reducer';
+import { dataRetrievedFromStorage } from './actions';
 
 let store: Store<AppState>;
 let adsService: AdsService = new AdsService();
@@ -12,10 +13,7 @@ let adsService: AdsService = new AdsService();
 async function getAsyncData(): Promise<any> {
     return await adsService.get().then((appState) => {
         if(appState && !isEmptyObject(appState)){
-            store.dispatch({
-                type: 'DATA_RETRIEVED_FROM_CHROME_STORAGE',
-                appState: appState as AppState
-            });
+            dataRetrievedFromStorage(appState as AppState);
         }
     })
 }
