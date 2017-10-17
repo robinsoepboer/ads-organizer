@@ -1,4 +1,5 @@
 import * as React from "react";
+import { connect } from 'react-redux';
 
 import { AdsComponent } from "./ads.component";
 import { AddAdComponent } from "./add-ad.component";
@@ -8,54 +9,25 @@ import AdsList from '../models/adsList';
 import Ad from '../models/ad';
 import Store from '../app.store';
 
-interface IState {
-    adsLists: AdsList[];
-}
+import mainReducer from '../reducers/reducer';
 
-export class OrganizerComponent extends React.Component<{}, IState> {
-
-    unsubscribe;
-
-    constructor(props: {}, context: any) {
-        super();        
-
-        this.state = {
-            adsLists: []
-        }
-    }
+class OrganizerComponent extends React.Component<any, any> {
 
     componentDidMount() {
-        let adsLists = Store.getState().adsLists;
-
-        if (adsLists.length === 0) {
-            adsLists.push(new AdsList(0, 'Default - Ads'));
+        if (this.props.adsLists.length === 0) {
+            this.props.adsLists.push(new AdsList(0, 'Default - Ads'));
         }
-
-        if (this.state.adsLists)
-            this.setState({ adsLists: adsLists });
-
-        this.unsubscribe = Store.subscribe(this.handleChange.bind(this))
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe()
-    }
-
-    handleChange() {
-        this.setState({
-            adsLists: Store.getState().adsLists
-        });
     }
 
     render(): JSX.Element {
         let listItems;
 
-        if(this.state.adsLists){
-            listItems = this.state.adsLists.map((item) => {
+        if (this.props.adsLists) {
+            listItems = this.props.adsLists.map((item) => {
                 return (
                     <AdsComponent key={item.id} adsList={item} />
                 );
-            });    
+            });
         }
 
         return (
@@ -70,6 +42,17 @@ export class OrganizerComponent extends React.Component<{}, IState> {
             </div>
         );
     }
-
-    
 }
+
+const mapStateToProps = state => mainReducer(state, {});
+
+const bindActionsToDispatch = dispatch => 
+(
+  {
+      //
+  }
+);
+
+const ConnectedOrganizer = connect(mapStateToProps, bindActionsToDispatch)(OrganizerComponent);
+export default ConnectedOrganizer;
+
