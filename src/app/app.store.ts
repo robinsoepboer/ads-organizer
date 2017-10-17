@@ -2,7 +2,7 @@ import AdsList from './models/adsList';
 import AppState from './models/appstate';
 import { createStore, Store, Action } from 'redux';
 import AdsService from './services/ads.service';
-import mainReducer from './reducers/reducer';
+import mainReducer from './reducers/main.reducer';
 
 let store: Store<AppState>;
 let adsService: AdsService = new AdsService();

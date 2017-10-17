@@ -9,7 +9,7 @@ import AdsList from '../models/adsList';
 import Ad from '../models/ad';
 import Store from '../app.store';
 
-import mainReducer from '../reducers/reducer';
+import mainReducer from '../reducers/main.reducer';
 
 class OrganizerComponent extends React.Component<any, any> {
 

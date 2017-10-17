@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AdComponent } from './ad.component';
-import Ad from '../models/ad';
+// import Ad from '../models/ad';
 import AdsList from '../models/adsList';
 
 interface IProps {
