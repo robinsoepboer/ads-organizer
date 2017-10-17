@@ -1,6 +1,7 @@
 import * as React from "react";
 import AdsList from '../models/adsList';
 import Store from '../app.store';
+import { createList } from '../actions';
 
 interface IProps {
 }
@@ -34,11 +35,7 @@ export class AddListComponent extends React.Component<IProps, IState> {
     }
 
     handleClick(){
-        Store.dispatch({
-            type: 'ADD_LIST',
-            listTitle: this.state.title
-        });
-
+        createList(this.state.title);
         this.setState({title: ''});
     }
 }

@@ -2,6 +2,7 @@ import * as React from "react";
 import Ad from '../models/ad';
 import Store from '../app.store';
 import AdsService from '../services/ads.service';
+import { createAd } from '../actions/index';
 
 interface IProps {
     organizerLink: boolean;
@@ -87,12 +88,7 @@ export class AddAdComponent extends React.Component<IProps, IState> {
     }
 
     handleClick(): void {
-        Store.dispatch({
-            type: 'ADD_AD',
-            ad: new Ad(this.state.title, this.state.link),
-            listId: this.state.listId
-        })
-
+        createAd(new Ad(this.state.title, this.state.link), this.state.listId);
         this.setState({ title: '', link: '' });
     }
 

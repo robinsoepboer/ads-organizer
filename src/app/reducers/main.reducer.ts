@@ -1,12 +1,13 @@
 import AppState from '../models/appstate';
 import adsListsReducer from './adslist.reducer';
+import ActionTypes from '../actions/action-types'
 
 function mainReducer(state: AppState, action): AppState {
     if (!state) {
         state = new AppState();
     }
 
-    if(action.type === 'DATA_RETRIEVED_FROM_CHROME_STORAGE' && action.appState){
+    if(action.type === ActionTypes.DataRetrievedFromStorage && action.appState){
         state = action.appState;
     }
 
