@@ -1,6 +1,6 @@
 import * as React from "react";
+import { ContextMenuProvider, ContextMenu, Item, Separator, IconFont } from 'react-contexify';
 import { AdComponent } from './ad.component';
-// import Ad from '../models/ad';
 import AdsList from '../models/adsList';
 
 interface IProps {
@@ -18,9 +18,28 @@ export class AdsComponent extends React.Component<IProps, {}> {
 
         return (
             <div className="ads-list">
-                <h2>{this.props.adsList.title}</h2>
+                <div id="ads-list-header">
+                    <h2>{this.props.adsList.title}</h2>
+                    <ContextMenuProvider 
+                        id={'adslist-context-menu-' + this.props.adsList.id} 
+                        className="context-provider"
+                        event="onClick">
+                        <i className="material-icons">more_vert</i>                          
+                    </ContextMenuProvider>                 
+                </div>
                 {listItems}
+                {this.renderContextMenu()}
             </div>
         )
+    }
+
+    renderContextMenu(): JSX.Element {
+        return (
+            <ContextMenu id={'adslist-context-menu-' + this.props.adsList.id}>
+                <Item>
+                    Add
+                </Item>
+            </ContextMenu>
+        );
     }
 }
