@@ -20,10 +20,7 @@ export class AdsComponent extends React.Component<IProps, {}> {
             <div className="ads-list">
                 <div id="ads-list-header">
                     <h2>{this.props.adsList.title}</h2>
-                    <ContextMenuProvider 
-                        id={'adslist-context-menu-' + this.props.adsList.id} 
-                        className="context-provider"
-                        event="onClick">
+                    <ContextMenuProvider id={'adslist-context-menu-' + this.props.adsList.id} className="context-provider" event="onClick">
                         <i className="material-icons">more_vert</i>                          
                     </ContextMenuProvider>                 
                 </div>
