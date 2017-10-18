@@ -34,7 +34,12 @@ export class AdsComponent extends React.Component<IProps, {}> {
         return (
             <ContextMenu id={'adslist-context-menu-' + this.props.adsList.id}>
                 <Item>
-                    Add
+                    <IconFont className="material-icons">edit</IconFont>
+                    Edit
+                </Item>
+                <Item>
+                    <IconFont className="material-icons">delete</IconFont>
+                    delete
                 </Item>
             </ContextMenu>
         );
