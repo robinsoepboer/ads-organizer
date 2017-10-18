@@ -8,21 +8,22 @@ import { AddAdComponent } from "./components/add-ad.component";
 import Ad from './models/ad';
 import Store from './app.store';
 
-if(document.getElementById("organizer")){    
+//generic function to bootstrap (angular term?) react application
+let bootstrapReact = (selector: string, appComponent: JSX.Element) => {
+    let element = document.getElementById(selector)
+
+    if(!element)
+        return;
+
     ReactDOM.render(
         <div>
             <Provider store={Store}>
-                <Organizer />                
+                {appComponent}                
             </Provider>
         </div>,
-        document.getElementById("organizer")
+        element
     );
 }
-else if (document.getElementById("browser-action")){
-    ReactDOM.render(
-        <div>
-            <AddAdComponent organizerLink={true} />
-        </div>,
-        document.getElementById("browser-action")
-    );
-}
+
+bootstrapReact("organizer", <Organizer />);
+bootstrapReact("browser-action", <AddAdComponent organizerLink={true} />);
