@@ -4,6 +4,7 @@ enum ActionTypes {
 
     /* List */
     ListCreate = 'LIST.CREATE',
+    ListUpdate = 'LIST.UPDATE',
 
     /* Add */
     AdCreate = 'AD.CREATE',

@@ -39,6 +39,6 @@ export class AdComponent extends React.Component<IProps, IState> {
         ad.description = event.target.value;
         this.props.ad.description = event.target.value;
 
-        updateAd(ad);
+        updateAd(ad, this.props.listId);
     }
 }

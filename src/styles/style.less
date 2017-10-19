@@ -6,6 +6,10 @@ html {
     box-sizing: inherit;
 }
 
+.hidden {
+    display:none !important;
+}
+
 #root {
     padding:10px;
 }
@@ -35,14 +39,35 @@ html {
         width:100%;
         margin-right:40px;
         
-        #ads-list-header{
+        .ads-list-header{
             display:flex;
             border-bottom: 1px solid #333;
 
             h2{
                 border-bottom: 0;
                 flex-grow:1;
-            } 
+            }
+
+            .editable-adslist-header {
+                display:flex;
+                flex-grow:1;
+
+                input {
+                    flex-grow:1;
+                    font-family: Arial;
+                    font-weight: bold;
+                    font-size: 1.5em;
+                    font-family: Arial;
+                    text-transform: uppercase;
+                    margin:0;
+                    padding:0 0 5px 0;
+                    border:0;
+                }
+            }
+
+            .context-provider {
+                display:flex;
+            }
         }
     }
 }

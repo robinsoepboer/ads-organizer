@@ -21,6 +21,14 @@ export const createList = (title: string) => {
     });
 }
 
+export const updateList = (title: string, listId: number) => {
+    Store.dispatch({
+        type: ActionTypes.ListUpdate,
+        listId: listId,
+        listTitle: title
+    });
+}
+
 /* Ad */
 
 export const createAd = (ad: Ad, listId: number) => {
@@ -31,10 +39,10 @@ export const createAd = (ad: Ad, listId: number) => {
     })
 }
 
-export const updateAd = (ad: Ad) => {
+export const updateAd = (ad: Ad, listId: number) => {
     Store.dispatch({
         type: ActionTypes.AdUpdate,
         ad: ad,
-        listId: this.props.listId
+        listId: listId
     })
 }
