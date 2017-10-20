@@ -1,8 +1,8 @@
-import * as React from "react";
+import * as React from 'react';
 import { ContextMenuProvider, ContextMenu, Item, Separator, IconFont } from 'react-contexify';
 import { AdComponent } from './ad.component';
 import AdsList from '../models/adsList';
-import { updateList } from '../actions'
+import { updateList } from '../actions';
 
 interface IState {
     editable: boolean;
@@ -15,7 +15,7 @@ interface IProps {
 
 export class AdsComponent extends React.Component<IProps, IState> {
 
-    titleInput: HTMLInputElement;
+    private titleInput: HTMLInputElement;
 
     constructor() {
         super();
@@ -23,16 +23,16 @@ export class AdsComponent extends React.Component<IProps, IState> {
         this.state = {
             editable: false,
             title: '',
-        }
+        };
     }
 
-    componentDidMount(): void {
-        this.setState({ title: this.props.adsList.title })
+    public componentDidMount(): void {
+        this.setState({ title: this.props.adsList.title });
     }
 
-    render(): JSX.Element {
+    public render(): JSX.Element {
 
-        var listItems = this.props.adsList.ads.map((item) => {
+        const listItems = this.props.adsList.ads.map((item) => {
             return (
                 <AdComponent key={item.link} ad={item} listId={this.props.adsList.id} />
             );
@@ -43,7 +43,9 @@ export class AdsComponent extends React.Component<IProps, IState> {
                 <div className="ads-list-header">
                     <h2 className={this.state.editable ? 'hidden' : ''}>{this.props.adsList.title}</h2>
                     {this.renderTitleInputField()}
-                    <ContextMenuProvider id={'adslist-context-menu-' + this.props.adsList.id} className="context-provider" event="onClick">
+                    <ContextMenuProvider id={'adslist-context-menu-' + this.props.adsList.id}
+                        className="context-provider" event="onClick"
+                    >
                         <button className="btn-transparent">
                             <i className="material-icons">more_vert</i>
                         </button>
@@ -52,25 +54,25 @@ export class AdsComponent extends React.Component<IProps, IState> {
                 </div>
                 {listItems}
             </div>
-        )
+        );
     }
 
-    renderTitleInputField(): JSX.Element {
+    private renderTitleInputField(): JSX.Element {
         return (
             <div className={'editable-adslist-header ' + (!this.state.editable ? 'hidden' : '')}>
                 <input id="ad-list-edit-title" type="text"
                     value={this.state.title}
-                    onChange={event => this.setState({ title: event.target.value })}
+                    onChange={(event) => this.setState({ title: event.target.value })}
                     ref={(input) => { this.titleInput = input; }}
                 />
                 <button className="btn-transparent" onClick={() => this.doneEditing()}>
                     <i className="material-icons">check</i>
                 </button>
             </div>
-        )
+        );
     }
 
-    renderContextMenu(): JSX.Element {
+    private renderContextMenu(): JSX.Element {
         return (
             <ContextMenu id={'adslist-context-menu-' + this.props.adsList.id}>
                 <Item onClick={() => this.makeEditable()}>
@@ -85,14 +87,14 @@ export class AdsComponent extends React.Component<IProps, IState> {
         );
     }
 
-    makeEditable(): void {
+    private makeEditable(): void {
         setTimeout(() => {
             this.setState({ editable: true });
             this.titleInput.focus();
         }, 0);
     }
 
-    doneEditing(){
+    private doneEditing() {
         this.setState({ editable: false });
         updateList(this.state.title, this.props.adsList.id);
     }

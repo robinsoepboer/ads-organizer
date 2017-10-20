@@ -6,20 +6,20 @@ import mainReducer from './reducers/main.reducer';
 import { dataRetrievedFromStorage } from './actions';
 
 let store: Store<AppState>;
-let adsService: AdsService = new AdsService();
+const adsService: AdsService = new AdsService();
 
-//Get application state from storage, this is an async function and data will be loaded into the app later
-//by firing of the 'DATA_RETRIEVED_FROM_CHROME_STORAGE' action
+// Get application state from storage, this is an async function and data will be loaded into the app later
+// by firing of the 'DATA_RETRIEVED_FROM_CHROME_STORAGE' action
 async function getAsyncData(): Promise<any> {
     return await adsService.get().then((appState) => {
-        if(appState && !isEmptyObject(appState)){
+        if (appState && !isEmptyObject(appState)) {
             dataRetrievedFromStorage(appState as AppState);
         }
-    })
+    });
 }
 
-//function to check if an object has zero properties
-function isEmptyObject(object: Object): boolean {
+// function to check if an object has zero properties
+function isEmptyObject(object: object): boolean {
     return (Object.keys(object).length === 0 && object.constructor === Object);
 }
 
@@ -27,7 +27,7 @@ getAsyncData();
 
 store = createStore(mainReducer);
 
-//Save data back to storage on every change
+// Save data back to storage on every change
 store.subscribe(() => {
     adsService.save(store.getState());
 });

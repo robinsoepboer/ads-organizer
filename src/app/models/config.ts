@@ -1,3 +1,3 @@
 export default class Config {
-    StorageKey: string;
+    public StorageKey: string;
 }

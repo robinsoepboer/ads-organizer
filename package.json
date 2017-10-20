@@ -11,7 +11,8 @@
         "react-contexify": "^2.1.4",
         "react-dom": "^16.0.0",
         "react-redux": "^5.0.6",
-        "redux": "^3.7.2"
+        "redux": "^3.7.2",
+        "tslint": "^5.7.0"
     },
     "devDependencies": {
         "@types/chrome": "^0.0.49",

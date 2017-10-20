@@ -4,6 +4,6 @@ export default class Ad {
         public link: string,
 
         public description: string = '',
-        public id: number = 0
-    ){}
+        public id: number = 0,
+    ) { }
 }

@@ -1,9 +1,10 @@
 import AdsList from './adsList';
 
 export default class AppState {
-    constructor(){
+
+    public adsLists: AdsList[];
+
+    constructor() {
         this.adsLists = [];
     }
-
-    adsLists: AdsList[];
 }

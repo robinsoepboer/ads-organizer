@@ -1,12 +1,12 @@
-import * as React from "react";
+import * as React from 'react';
 import Ad from '../models/ad';
-import TextareaAutosize from 'react-autosize-textarea';
 import Store from '../app.store';
+import TextareaAutosize from 'react-autosize-textarea';
 import { updateAd } from '../actions';
 
 interface IProps {
     ad: Ad;
-    listId:number;    
+    listId: number;
 }
 
 interface IState {
@@ -15,7 +15,7 @@ interface IState {
 }
 
 export class AdComponent extends React.Component<IProps, IState> {
-    render(): JSX.Element {
+    public render(): JSX.Element {
         return (
             <div className="ad">
                 <div className="info">
@@ -23,19 +23,19 @@ export class AdComponent extends React.Component<IProps, IState> {
                     <a href={this.props.ad.link}> Original Ad</a>
                 </div>
                 <div>
-                    <TextareaAutosize 
-                        className="description" 
-                        placeholder="description..." 
+                    <TextareaAutosize
+                        className="description"
+                        placeholder="description..."
                         onChange={(event) => this.handleChanges(event)}
                         value={this.props.ad.description}>
                     </TextareaAutosize>
                 </div>
             </div>
-        )
+        );
     }
 
-    handleChanges(event){
-        let ad = this.props.ad;
+    private handleChanges(event) {
+        const ad = this.props.ad;
         ad.description = event.target.value;
         this.props.ad.description = event.target.value;
 

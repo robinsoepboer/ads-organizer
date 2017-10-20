@@ -4,60 +4,57 @@ import AppState from '../models/appstate';
 import ConfigService from '../services/config.service';
 
 export default class AdsService {
-    
-    configService: ConfigService;
 
-    constructor(){
+    private configService: ConfigService;
+
+    constructor() {
         this.configService = new ConfigService();
     }
 
-    get(): Promise<any> {
-        const promise = new Promise<any>((resolve, reject) => {           
-            //if the 'chrome' and 'chrome.storage' object are defined then the app is run as 
-            //browser extension so save data in 'chrome.storage'
-            if(chrome && chrome.storage){
+    public get(): Promise<any> {
+        const promise = new Promise<any>((resolve, reject) => {
+            // if the 'chrome' and 'chrome.storage' object are defined then the app is run as
+            // browser extension so save data in 'chrome.storage'
+            if (chrome && chrome.storage) {
                 chrome.storage.local.get((data) => {
-                    if(data)
+                    if (data)
                         resolve(data.appState);
                     else
                         resolve(data);
                 });
+            } else {
+                // fallback on localStorage
+                const data = localStorage.getItem(this.configService.config.StorageKey);
+                resolve(JSON.parse(data) as AppState);
             }
-            //else fallback on localStorage
-            else {
-                var data = localStorage.getItem(this.configService.config.StorageKey);
-                resolve(JSON.parse(data) as AppState)
-            }                
         });
 
         return promise;
     }
 
-    save(state: AppState): void {
-        let storageKey = this.configService.config.StorageKey;
+    public save(state: AppState): void {
+        const storageKey = this.configService.config.StorageKey;
 
-        //if the 'chrome' and 'chrome.storage' object are defined then the app is run as 
-        //browser extension so save data in 'chrome.storage'
-        if(chrome && chrome.storage){
-            chrome.storage.local.set({storageKey: state});
-        }
-        //else fallback on localStorage        
-        else {
+        // if the 'chrome' and 'chrome.storage' object are defined then the app is run as
+        // browser extension so save data in 'chrome.storage'
+        if (chrome && chrome.storage) {
+            chrome.storage.local.set({ storageKey: state });
+        } else {
+            // fallback on localStorage
             localStorage.setItem(storageKey, JSON.stringify(state));
         }
     }
 
-    saveTestData(): void {
-        let storageKey = this.configService.config.StorageKey;        
-        let testData = require('../../../test-data.json');
+    public saveTestData(): void {
+        const storageKey = this.configService.config.StorageKey;
+        const testData = require('../../../test-data.json');
 
-        //if the 'chrome' and 'chrome.storage' object are defined then the app is run as 
-        //browser extension so save data in 'chrome.storage'
-        if(chrome && chrome.storage){
-            chrome.storage.local.set({storageKey: testData});
-        }
-        //else fallback on localStorage        
-        else {
+        // if the 'chrome' and 'chrome.storage' object are defined then the app is run as
+        // browser extension so save data in 'chrome.storage'
+        if (chrome && chrome.storage) {
+            chrome.storage.local.set({ storageKey: testData });
+        } else {
+            // else fallback on localStorage
             localStorage.setItem(storageKey, JSON.stringify(testData));
         }
 
