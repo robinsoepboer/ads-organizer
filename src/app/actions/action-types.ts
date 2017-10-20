@@ -9,6 +9,6 @@ enum ActionTypes {
     /* Add */
     AdCreate = 'AD.CREATE',
     AdUpdate = 'AD.UPDATE',
-};
+}
 
 export default ActionTypes;
