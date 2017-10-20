@@ -14,18 +14,25 @@ export const dataRetrievedFromStorage = (appState: AppState) => {
 
 /* List */
 
-export const createList = (title: string) => {
+export const createList = (listTitle: string) => {
     Store.dispatch({
         type: ActionTypes.ListCreate,
-        listTitle: title,
+        listTitle,
     });
 };
 
-export const updateList = (title: string, listId: number) => {
+export const updateList = (listTitle: string, listId: number) => {
     Store.dispatch({
         type: ActionTypes.ListUpdate,
         listId,
-        listTitle: title,
+        listTitle,
+    });
+};
+
+export const deleteList = (listId: number) => {
+    Store.dispatch({
+        type: ActionTypes.ListDelete,
+        listId,
     });
 };
 

@@ -3,6 +3,7 @@
 
 import '../styles/main.less';
 import 'file-loader?name=reactcontexify.css!../../node_modules/react-contexify/dist/ReactContexify.css';
+import 'file-loader?name=sweetalert.css!../../node_modules/sweetalert/dist/sweetalert.css';
 
 import 'file-loader?name=index.html!../index.html';
 import 'file-loader?name=browser-action.html!../browser-action/browser-action.html';

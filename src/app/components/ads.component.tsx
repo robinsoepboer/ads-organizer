@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { ContextMenuProvider, ContextMenu, Item, Separator, IconFont } from 'react-contexify';
+import SweetAlert from 'sweetalert-react';
 import { AdComponent } from './ad.component';
 import AdsList from '../models/adsList';
-import { updateList } from '../actions';
+import { updateList, deleteList } from '../actions';
 
 interface IState {
     editable: boolean;
     title: string;
+    showDeleteConfim: boolean;
 }
 
 interface IProps {
@@ -23,6 +25,7 @@ export class AdsComponent extends React.Component<IProps, IState> {
         this.state = {
             editable: false,
             title: '',
+            showDeleteConfim: false,
         };
     }
 
@@ -51,6 +54,18 @@ export class AdsComponent extends React.Component<IProps, IState> {
                         </button>
                     </ContextMenuProvider>
                     {this.renderContextMenu()}
+                    <SweetAlert
+                        show={this.state.showDeleteConfim}
+                        showCancelButton
+                        icon="warning"
+                        title="Are you sure?"
+                        text={'This action can\'t be undone!\r\nAre you sure you want to delete this list?\r\n\r\n' +
+                            'All ads contained in this list will be deleted as well!'}
+                        confirmButtonText="yes, delete list"
+                        confirmButtonColor="red"
+                        onConfirm={() => this.deleteList()}
+                        onCancel={() => this.setState({ showDeleteConfim: false })}
+                    />
                 </div>
                 {listItems}
             </div>
@@ -79,7 +94,7 @@ export class AdsComponent extends React.Component<IProps, IState> {
                     <IconFont className="material-icons">edit</IconFont>
                     Edit
                 </Item>
-                <Item>
+                <Item onClick={() => this.openConfirmDialog()}>
                     <IconFont className="material-icons">delete</IconFont>
                     delete
                 </Item>
@@ -94,8 +109,19 @@ export class AdsComponent extends React.Component<IProps, IState> {
         }, 0);
     }
 
-    private doneEditing() {
+    private openConfirmDialog(): void {
+        setTimeout(() => {
+            this.setState({ showDeleteConfim: true });
+        }, 0);
+    }
+
+    private doneEditing(): void {
         this.setState({ editable: false });
         updateList(this.state.title, this.props.adsList.id);
+    }
+
+    private deleteList() {
+        this.setState({ showDeleteConfim: false });
+        deleteList(this.props.adsList.id);
     }
 }
