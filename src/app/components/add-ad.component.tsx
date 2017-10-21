@@ -29,6 +29,8 @@ export class AddAdComponent extends React.Component<IProps, IState> {
         if (chrome && chrome.tabs) {
             chrome.tabs.getSelected(null, (tab) => this.preFillFields(tab));
         }
+
+        this.subscribeToListChanges();
     }
 
     public render(): JSX.Element {
@@ -45,9 +47,9 @@ export class AddAdComponent extends React.Component<IProps, IState> {
                 </div>
                 <div className="form-group">
                     <label htmlFor="ad-link">Link:</label>
-                    <input  id="ad-link" type="text"
-                            value={this.state.link}
-                            onChange={(event) => this.setState({ link: event.target.value })} />
+                    <input id="ad-link" type="text"
+                        value={this.state.link}
+                        onChange={(event) => this.setState({ link: event.target.value })} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="ad-list-id">List:</label>
@@ -116,5 +118,16 @@ export class AddAdComponent extends React.Component<IProps, IState> {
             const adsService = new AdsService();
             adsService.saveTestData();
         }
+    }
+
+    // The state.listid has to be defaulted to the id of the first list
+    private subscribeToListChanges() {
+        const unsubscribe = Store.subscribe(() => {
+            const adsLists = Store.getState().adsLists;
+            if (adsLists[0]) {
+                this.setState({ listId: adsLists[0].id });
+                unsubscribe();
+            }
+        });
     }
 }

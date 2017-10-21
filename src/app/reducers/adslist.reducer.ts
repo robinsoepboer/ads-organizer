@@ -1,19 +1,24 @@
 import ActionTypes from '../actions/action-types';
 import AdsList from '../models/adsList';
+import { getNextId } from '../helpers';
+import adsReducer from './ad.reducer';
 
 function adsListsReducer(state: AdsList[], action): AdsList[] {
     switch (action.type) {
         case ActionTypes.ListCreate: {
             return [
                 ...state,
-                new AdsList(state.length, action.listTitle),
+                new AdsList(getNextId(state), action.listTitle),
             ];
         }
         case ActionTypes.ListUpdate: {
             const index = findIndexofAdsList(state, action.listId);
             return [
                 ...state.slice(0, index),
-                state[index].title = action.listTitle,
+                {
+                    ...state[index],
+                    title: action.listTitle,
+                },
                 ...state.slice(index + 1),
             ];
         }
@@ -24,15 +29,17 @@ function adsListsReducer(state: AdsList[], action): AdsList[] {
                 ...state.slice(index + 1),
             ];
         }
-        case ActionTypes.AdCreate: {
-            const newState = [...state];
-            newState[action.listId].ads = [...newState[action.listId].ads, action.ad]
-            return newState;
-        }
+        case ActionTypes.AdCreate:
         case ActionTypes.AdUpdate: {
-            const updateState = [...state] as AdsList[];
-            updateState[action.listId].ads[action.ad.id] = action.ad;
-            return updateState;
+            const index = findIndexofAdsList(state, action.listId);
+            return [
+                ...state.slice(0, index),
+                {
+                    ...state[index],
+                    ads: adsReducer(state[index].ads, action),
+                },
+                ...state.slice(index + 1),
+            ];
         }
         default:
             return state;
