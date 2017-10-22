@@ -26,7 +26,7 @@ export class AdsContextMenuComponent extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
         return (
-            <div>
+            <div className="ads-contextmenu-component">
                 <ContextMenuProvider
                     id={this.contextMenuId()}
                     className="context-provider"
