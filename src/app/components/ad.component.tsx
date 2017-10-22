@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { ContextMenuProvider, ContextMenu, Item, Separator, IconFont } from 'react-contexify';
 import Ad from '../models/ad';
 import Store from '../app.store';
 import TextareaAutosize from 'react-autosize-textarea';
 import { updateAd } from '../actions';
+import { AdContextMenuComponent } from './ad-context-menu.component';
 
 interface IProps {
     ad: Ad;
@@ -19,8 +21,9 @@ export class AdComponent extends React.Component<IProps, IState> {
         return (
             <div className="ad">
                 <div className="info">
-                    <span>{this.props.ad.title}</span>
                     <a href={this.props.ad.link}> Original Ad</a>
+                    <span>{this.props.ad.title}</span>
+                    <AdContextMenuComponent adId={this.props.ad.id} listId={this.props.listId} />
                 </div>
                 <div>
                     <TextareaAutosize

@@ -21,6 +21,13 @@ function adsReducer(state: Ad[], action): Ad[] {
                 ...state.slice(index + 1),
             ];
         }
+        case ActionTypes.AdDelete: {
+            const index = findIndexofAd(state, action.adId);
+            return [
+                ...state.slice(0, index),
+                ...state.slice(index + 1),
+            ];
+        }
         default:
             return state;
     }

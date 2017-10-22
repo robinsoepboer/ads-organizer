@@ -53,3 +53,11 @@ export const updateAd = (ad: Ad, listId: number) => {
         listId,
     });
 };
+
+export const deleteAd = (adId: number, listId: number) => {
+    Store.dispatch({
+        type: ActionTypes.AdDelete,
+        adId,
+        listId,
+    });
+};

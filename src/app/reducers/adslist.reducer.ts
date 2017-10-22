@@ -30,7 +30,8 @@ function adsListsReducer(state: AdsList[], action): AdsList[] {
             ];
         }
         case ActionTypes.AdCreate:
-        case ActionTypes.AdUpdate: {
+        case ActionTypes.AdUpdate:
+        case ActionTypes.AdDelete: {
             const index = findIndexofAdsList(state, action.listId);
             return [
                 ...state.slice(0, index),

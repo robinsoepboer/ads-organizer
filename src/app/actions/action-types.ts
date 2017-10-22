@@ -10,6 +10,7 @@ enum ActionTypes {
     /* Add */
     AdCreate = 'AD.CREATE',
     AdUpdate = 'AD.UPDATE',
+    AdDelete = 'AD.DELETE',
 }
 
 export default ActionTypes;
