@@ -57,7 +57,6 @@ export class AdsComponent extends React.Component<IProps, IState> {
                     <SweetAlert
                         show={this.state.showDeleteConfim}
                         showCancelButton
-                        icon="warning"
                         title="Are you sure?"
                         text={'This action can\'t be undone!\r\nAre you sure you want to delete this list?\r\n\r\n' +
                             'All ads contained in this list will be deleted as well!'}
@@ -81,7 +80,10 @@ export class AdsComponent extends React.Component<IProps, IState> {
                     ref={(input) => { this.titleInput = input; }}
                 />
                 <button className="btn-transparent" onClick={() => this.doneEditing()}>
-                    <i className="material-icons">check</i>
+                    <i className="material-icons">done</i>
+                </button>
+                <button className="btn-transparent" onClick={() => this.cancelEditing()}>
+                    <i className="material-icons">clear</i>
                 </button>
             </div>
         );
@@ -118,6 +120,13 @@ export class AdsComponent extends React.Component<IProps, IState> {
     private doneEditing(): void {
         this.setState({ editable: false });
         updateList(this.state.title, this.props.adsList.id);
+    }
+
+    private cancelEditing(): void {
+        this.setState({
+            editable: false,
+            title: this.props.adsList.title,
+         });
     }
 
     private deleteList() {
