@@ -3,8 +3,10 @@
 .ad {
     padding: 10px 0;
 
-    span {
-        flex-grow:1;
+    input {
+        flex-grow: 1;
+        padding: 0;
+        border: 0;
         .text-ellipsis;
     }
 
@@ -23,6 +25,7 @@
             font-family: arial;
             height: 20px;
             min-width: 76px;
+            margin-right:20px;
 
             &:hover {
                 background-color: #3949AB;
@@ -33,7 +36,8 @@
     .description {
         max-width:100%;
         min-width:100%;
-        padding:0;
+        resize: none !important;
+        padding:0 10px 0 0;
         border:0;
         color:#9b9b9b;
         font-size:12px;

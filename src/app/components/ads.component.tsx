@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { ContextMenuProvider, ContextMenu, Item, Separator, IconFont } from 'react-contexify';
-import SweetAlert from 'sweetalert-react';
 import { AdComponent } from './ad.component';
 import AdsList from '../models/adsList';
 import { updateList, deleteList } from '../actions';
+import { AdsContextMenuComponent } from './ads-contextmenu.component';
 
 interface IState {
     editable: boolean;
     title: string;
-    showDeleteConfim: boolean;
 }
 
 interface IProps {
@@ -25,7 +23,6 @@ export class AdsComponent extends React.Component<IProps, IState> {
         this.state = {
             editable: false,
             title: '',
-            showDeleteConfim: false,
         };
     }
 
@@ -46,24 +43,10 @@ export class AdsComponent extends React.Component<IProps, IState> {
                 <div className="ads-list-header">
                     <h2 className={this.state.editable ? 'hidden' : ''}>{this.props.adsList.title}</h2>
                     {this.renderTitleInputField()}
-                    <ContextMenuProvider id={'adslist-context-menu-' + this.props.adsList.id}
-                        className="context-provider" event="onClick"
-                    >
-                        <button className="btn-transparent">
-                            <i className="material-icons">more_vert</i>
-                        </button>
-                    </ContextMenuProvider>
-                    {this.renderContextMenu()}
-                    <SweetAlert
-                        show={this.state.showDeleteConfim}
-                        showCancelButton
-                        title="Are you sure?"
-                        text={'This action can\'t be undone!\r\nAre you sure you want to delete this list?\r\n\r\n' +
-                            'All ads contained in this list will be deleted as well!'}
-                        confirmButtonText="yes, delete list"
-                        confirmButtonColor="red"
-                        onConfirm={() => this.deleteList()}
-                        onCancel={() => this.setState({ showDeleteConfim: false })}
+                    <AdsContextMenuComponent
+                        listId={this.props.adsList.id}
+                        deleteList={() => this.deleteList()}
+                        makeEditable={() => this.makeEditable()}
                     />
                 </div>
                 {listItems}
@@ -89,31 +72,10 @@ export class AdsComponent extends React.Component<IProps, IState> {
         );
     }
 
-    private renderContextMenu(): JSX.Element {
-        return (
-            <ContextMenu id={'adslist-context-menu-' + this.props.adsList.id}>
-                <Item onClick={() => this.makeEditable()}>
-                    <IconFont className="material-icons">edit</IconFont>
-                    Edit
-                </Item>
-                <Item onClick={() => this.openConfirmDialog()}>
-                    <IconFont className="material-icons">delete</IconFont>
-                    delete
-                </Item>
-            </ContextMenu>
-        );
-    }
-
     private makeEditable(): void {
         setTimeout(() => {
             this.setState({ editable: true });
             this.titleInput.focus();
-        }, 0);
-    }
-
-    private openConfirmDialog(): void {
-        setTimeout(() => {
-            this.setState({ showDeleteConfim: true });
         }, 0);
     }
 
@@ -129,8 +91,7 @@ export class AdsComponent extends React.Component<IProps, IState> {
          });
     }
 
-    private deleteList() {
-        this.setState({ showDeleteConfim: false });
+    private deleteList(): void {
         deleteList(this.props.adsList.id);
     }
 }
