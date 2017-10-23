@@ -61,3 +61,13 @@ export const deleteAd = (adId: number, listId: number) => {
         listId,
     });
 };
+
+export const moveAd = (adId: number, listFromId: number, dropZoneId: number, listToId: number) => {
+    Store.dispatch({
+        type: ActionTypes.AdMove,
+        adId,
+        listFromId,
+        dropZoneId,
+        listToId,
+    });
+};

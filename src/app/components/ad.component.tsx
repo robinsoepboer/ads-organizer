@@ -18,6 +18,8 @@ interface IProps {
 const adSource = {
     beginDrag(props) {
         return {
+            adId: props.ad.id,
+            listId: props.listId,
         };
     },
 };

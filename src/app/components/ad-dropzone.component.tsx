@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { } from '../actions';
+import { moveAd } from '../actions';
 import { DropTarget } from 'react-dnd';
 
 const squareTarget = {
     drop(props, monitor) {
-        // fire reorder action
+        const draggedObject = monitor.getItem();
+        moveAd(draggedObject.adId, draggedObject.listId, props.insertedAfterAdd, props.insertedInList);
     },
 };
 
@@ -16,8 +17,13 @@ function collect(connect, monitor) {
     };
 }
 
+interface IProps {
+    insertedAfterAdd: number;
+    insertedInList: number;
+}
+
 @DropTarget('Ad', squareTarget, collect)
-export class AdDropZoneComponent extends React.Component<{}, {}> {
+export class AdDropZoneComponent extends React.Component<IProps, {}> {
     public render(): JSX.Element {
         return (this.props as any).connectDropTarget(
             <div className={this.determineDropState()}></div>);

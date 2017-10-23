@@ -37,7 +37,7 @@ export class AdsComponent extends React.Component<IProps, IState> {
             return (
                 <div key={item.link}>
                     <AdComponent ad={item} listId={this.props.adsList.id} />
-                    <AdDropZoneComponent />
+                    <AdDropZoneComponent insertedAfterAdd={item.id} insertedInList={this.props.adsList.id}/>
                 </div>
             );
         });
@@ -53,6 +53,7 @@ export class AdsComponent extends React.Component<IProps, IState> {
                         makeEditable={() => this.makeEditable()}
                     />
                 </div>
+                <AdDropZoneComponent insertedAfterAdd={0} insertedInList={this.props.adsList.id}/>
                 {listItems}
             </div>
         );

@@ -1,5 +1,5 @@
 import AppState from '../models/appstate';
-import adsListsReducer from './adslist.reducer';
+import adsListReducer from './adslist.reducer';
 import ActionTypes from '../actions/action-types';
 
 function mainReducer(state: AppState, action): AppState {
@@ -12,7 +12,7 @@ function mainReducer(state: AppState, action): AppState {
     }
 
     return {
-        adsLists: adsListsReducer(state.adsLists, action),
+        adsLists: adsListReducer(state.adsLists, action),
     };
 }
 

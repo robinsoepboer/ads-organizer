@@ -1,9 +1,10 @@
 import ActionTypes from '../actions/action-types';
 import AdsList from '../models/adsList';
-import { getNextId } from '../helpers';
+import Ad from '../models/ad';
+import { getNextId, findIndexofAdsList, findIndexOfAd } from '../helpers';
 import adsReducer from './ad.reducer';
 
-function adsListsReducer(state: AdsList[], action): AdsList[] {
+function adsListReducer(state: AdsList[], action): AdsList[] {
     switch (action.type) {
         case ActionTypes.ListCreate: {
             return [
@@ -42,13 +43,43 @@ function adsListsReducer(state: AdsList[], action): AdsList[] {
                 ...state.slice(index + 1),
             ];
         }
+        case ActionTypes.AdMove: {
+            const indexFrom = findIndexofAdsList(state, action.listFromId);
+            const indexTo = findIndexofAdsList(state, action.listToId);
+            const adIndex = findIndexOfAd(state[indexFrom].ads, action.adId);
+            const movingAd = state[indexFrom].ads[adIndex];
+            const dropzoneIndex = findIndexOfAd(state[indexTo].ads, action.dropZoneId) + 1;
+
+            // remove moving ad
+            const newState = [
+                ...state.slice(0, indexFrom),
+                {
+                    ...state[indexFrom],
+                    ads: [
+                        ...state[indexFrom].ads.slice(0, adIndex),
+                        ...state[indexFrom].ads.slice(adIndex + 1),
+                    ],
+                },
+                ...state.slice(indexFrom + 1),
+            ];
+
+            // Add moving ad on new location
+            return [
+                ...newState.slice(0, indexTo),
+                {
+                    ...newState[indexTo],
+                    ads: [
+                        ...newState[indexTo].ads.slice(0, dropzoneIndex),
+                        movingAd,
+                        ...newState[indexTo].ads.slice(dropzoneIndex),
+                    ],
+                },
+                ...newState.slice(indexTo + 1),
+            ];
+        }
         default:
             return state;
     }
 }
 
-function findIndexofAdsList(state: AdsList[], id: number): number {
-    return state.indexOf(state.filter((adsList) => adsList.id === id)[0]);
-}
-
-export default adsListsReducer;
+export default adsListReducer;
