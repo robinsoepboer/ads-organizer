@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import { AdsComponent } from './ads.component';
 import { AddAdComponent } from './add-ad.component';
@@ -8,9 +10,9 @@ import { AddListComponent } from './add-list.component';
 import AdsList from '../models/adsList';
 import Ad from '../models/ad';
 import Store from '../app.store';
-
 import mainReducer from '../reducers/main.reducer';
 
+@DragDropContext(HTML5Backend)
 class OrganizerComponent extends React.Component<any, any> {
 
     public componentDidMount() {

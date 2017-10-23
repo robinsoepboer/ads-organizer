@@ -3,6 +3,7 @@ import { AdComponent } from './ad.component';
 import AdsList from '../models/adsList';
 import { updateList, deleteList } from '../actions';
 import { AdsContextMenuComponent } from './ads-contextmenu.component';
+import { AdDropZoneComponent } from './ad-dropzone.component';
 
 interface IState {
     editable: boolean;
@@ -34,7 +35,10 @@ export class AdsComponent extends React.Component<IProps, IState> {
 
         const listItems = this.props.adsList.ads.map((item) => {
             return (
-                <AdComponent key={item.link} ad={item} listId={this.props.adsList.id} />
+                <div key={item.link}>
+                    <AdComponent ad={item} listId={this.props.adsList.id} />
+                    <AdDropZoneComponent />
+                </div>
             );
         });
 
