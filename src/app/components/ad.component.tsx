@@ -10,6 +10,8 @@ import { DragSource } from 'react-dnd';
 interface IProps {
     ad: Ad;
     listId: number;
+    connectDragSource?: any;
+    isDragging?: boolean;
 }
 
 /**
@@ -30,8 +32,8 @@ const adSource = {
 }))
 export class AdComponent extends React.Component<IProps, {}> {
     public render(): JSX.Element {
-        return (this.props as any).connectDragSource(
-            <div className="ad" style={{opacity: (this.props as any).isDragging ? 0.5 : 1}}>
+        return this.props.connectDragSource(
+            <div className="ad" style={{opacity: this.props.isDragging ? 0.5 : 1}}>
                 <div className="info">
                     <a href={this.props.ad.link}> Original Ad</a>
                     <input value={this.props.ad.title}

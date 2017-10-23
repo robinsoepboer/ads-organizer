@@ -20,22 +20,23 @@ function collect(connect, monitor) {
 interface IProps {
     insertedAfterAdd: number;
     insertedInList: number;
+    connectDropTarget?: any;
+    isOver?: boolean;
+    canDrop?: boolean;
 }
 
 @DropTarget('Ad', squareTarget, collect)
 export class AdDropZoneComponent extends React.Component<IProps, {}> {
     public render(): JSX.Element {
-        return (this.props as any).connectDropTarget(
-            <div className={this.determineDropState()}></div>);
+        return this.props.connectDropTarget(<div className={this.determineDropState()}></div>);
     }
 
     private determineDropState(): string {
-        const anyProps = (this.props as any);
         let classString = 'ad-dropzone';
 
-        if (anyProps.isOver)
+        if (this.props.isOver)
             classString += ' isOver';
-        if (anyProps.canDrop)
+        if (this.props.canDrop)
             classString += ' canDrop';
         return classString;
     }
