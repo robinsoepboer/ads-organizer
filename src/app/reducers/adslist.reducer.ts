@@ -31,6 +31,9 @@ function adsListReducer(state: AdsList[], action): AdsList[] {
             ];
         }
         case ActionTypes.ListMove: {
+            if (action.listId === action.dropZoneId)
+                return state;
+
             const indexFrom = findIndexofAdsList(state, action.listId);
             const indexTo = findIndexofAdsList(state, action.dropZoneId) + 1;
             const movingList = { ...state[indexFrom] };
@@ -61,11 +64,17 @@ function adsListReducer(state: AdsList[], action): AdsList[] {
             ];
         }
         case ActionTypes.AdMove: {
+            if (action.listFromId === action.listToId && action.adId === action.dropZoneId)
+                return state;
+
             const indexFrom = findIndexofAdsList(state, action.listFromId);
             const indexTo = findIndexofAdsList(state, action.listToId);
             const adIndex = findIndexOfAd(state[indexFrom].ads, action.adId);
             const movingAd = { ...state[indexFrom].ads[adIndex] };
-            const dropzoneIndex = findIndexOfAd(state[indexTo].ads, action.dropZoneId) + 1;
+            let dropzoneIndex = findIndexOfAd(state[indexTo].ads, action.dropZoneId);
+
+            if (dropzoneIndex < 0)
+                dropzoneIndex = 0;
 
             // remove moving ad
             const newState = [

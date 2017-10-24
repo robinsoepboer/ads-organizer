@@ -41,7 +41,7 @@ class OrganizerComponent extends React.Component<any, any> {
                     <AddListComponent />
                 </div>
                 <div id="ads-lists">
-                    <AdsDropZoneComponent insertedAfter={-1} />
+                    <AdsDropZoneComponent insertedAfter={0} />
                     {listItems}
                 </div>
             </div>
