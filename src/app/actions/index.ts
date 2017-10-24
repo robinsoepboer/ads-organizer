@@ -36,6 +36,14 @@ export const deleteList = (listId: number) => {
     });
 };
 
+export const moveList = (listId: number, dropZoneId: number) => {
+    Store.dispatch({
+        type: ActionTypes.ListMove,
+        listId,
+        dropZoneId,
+    });
+};
+
 /* Ad */
 
 export const createAd = (ad: Ad, listId: number) => {

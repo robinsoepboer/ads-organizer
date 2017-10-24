@@ -14,9 +14,6 @@ interface IProps {
     isDragging?: boolean;
 }
 
-/**
- * Implements the drag source contract.
- */
 const adSource = {
     beginDrag(props) {
         return {
@@ -39,7 +36,6 @@ export class AdComponent extends React.Component<IProps, {}> {
                     <input value={this.props.ad.title}
                         onChange={(event) => this.handleTitleChanges(event)}></input>
                     <AdContextMenuComponent adId={this.props.ad.id} listId={this.props.listId} />
-                    <i className="material-icons move">open_with</i>
                 </div>
                 <div className="text-area-parent">
                     <TextareaAutosize

@@ -4,6 +4,7 @@ import AdsList from '../models/adsList';
 import { updateList, deleteList } from '../actions';
 import { AdsContextMenuComponent } from './ads-contextmenu.component';
 import { AdDropZoneComponent } from './ad-dropzone.component';
+import { DragSource } from 'react-dnd';
 
 interface IState {
     editable: boolean;
@@ -12,8 +13,22 @@ interface IState {
 
 interface IProps {
     adsList: AdsList;
+    connectDragSource?: any;
+    isDragging?: boolean;
 }
 
+const adSource = {
+    beginDrag(props) {
+        return {
+            listId: props.adsList.id,
+        };
+    },
+};
+
+@DragSource('AdsList', adSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+}))
 export class AdsComponent extends React.Component<IProps, IState> {
 
     private titleInput: HTMLInputElement;
@@ -37,13 +52,13 @@ export class AdsComponent extends React.Component<IProps, IState> {
             return (
                 <div key={item.link}>
                     <AdComponent ad={item} listId={this.props.adsList.id} />
-                    <AdDropZoneComponent insertedAfterAdd={item.id} insertedInList={this.props.adsList.id}/>
+                    <AdDropZoneComponent insertedAfterAdd={item.id} insertedInList={this.props.adsList.id} />
                 </div>
             );
         });
 
-        return (
-            <div className="ads-list">
+        return this.props.connectDragSource(
+            <div className="ads-list" style={{opacity: this.props.isDragging ? 0.5 : 1}}>
                 <div className="ads-list-header">
                     <h2 className={this.state.editable ? 'hidden' : ''}>{this.props.adsList.title}</h2>
                     {this.renderTitleInputField()}
@@ -53,10 +68,9 @@ export class AdsComponent extends React.Component<IProps, IState> {
                         makeEditable={() => this.makeEditable()}
                     />
                 </div>
-                <AdDropZoneComponent insertedAfterAdd={0} insertedInList={this.props.adsList.id}/>
+                <AdDropZoneComponent insertedAfterAdd={0} insertedInList={this.props.adsList.id} />
                 {listItems}
-            </div>
-        );
+            </div>);
     }
 
     private renderTitleInputField(): JSX.Element {
@@ -93,7 +107,7 @@ export class AdsComponent extends React.Component<IProps, IState> {
         this.setState({
             editable: false,
             title: this.props.adsList.title,
-         });
+        });
     }
 
     private deleteList(): void {

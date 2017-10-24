@@ -6,6 +6,7 @@ enum ActionTypes {
     ListCreate = 'LIST.CREATE',
     ListUpdate = 'LIST.UPDATE',
     ListDelete = 'LIST.DELETE',
+    ListMove = 'LIST.MOVE',
 
     /* Add */
     AdCreate = 'AD.CREATE',

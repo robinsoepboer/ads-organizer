@@ -6,6 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { AdsComponent } from './ads.component';
 import { AddAdComponent } from './add-ad.component';
 import { AddListComponent } from './add-list.component';
+import { AdsDropZoneComponent } from './ads-dropzone.component';
 
 import AdsList from '../models/adsList';
 import Ad from '../models/ad';
@@ -26,9 +27,10 @@ class OrganizerComponent extends React.Component<any, any> {
 
         if (this.props.adsLists) {
             listItems = this.props.adsLists.map((item) => {
-                return (
-                    <AdsComponent key={item.id} adsList={item} />
-                );
+                return [
+                    <AdsComponent key={item.id} adsList={item} />,
+                    <AdsDropZoneComponent key={'dropzone-' + item.id} insertedAfter={item.id} />,
+                ];
             });
         }
 
@@ -39,6 +41,7 @@ class OrganizerComponent extends React.Component<any, any> {
                     <AddListComponent />
                 </div>
                 <div id="ads-lists">
+                    <AdsDropZoneComponent insertedAfter={-1} />
                     {listItems}
                 </div>
             </div>
@@ -49,11 +52,11 @@ class OrganizerComponent extends React.Component<any, any> {
 const mapStateToProps = (state) => mainReducer(state, {});
 
 const bindActionsToDispatch = (dispatch) =>
-(
-  {
-      //
-  }
-);
+    (
+        {
+            //
+        }
+    );
 
 const ConnectedOrganizer = connect(mapStateToProps, bindActionsToDispatch)(OrganizerComponent);
 export default ConnectedOrganizer;
