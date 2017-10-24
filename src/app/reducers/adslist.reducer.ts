@@ -71,10 +71,10 @@ function adsListReducer(state: AdsList[], action): AdsList[] {
             const indexTo = findIndexofAdsList(state, action.listToId);
             const adIndex = findIndexOfAd(state[indexFrom].ads, action.adId);
             const movingAd = { ...state[indexFrom].ads[adIndex] };
-            let dropzoneIndex = findIndexOfAd(state[indexTo].ads, action.dropZoneId);
+            const dropzoneIndex = findIndexOfAd(state[indexTo].ads, action.dropZoneId);
 
-            if (dropzoneIndex < 0)
-                dropzoneIndex = 0;
+            if (adIndex === dropzoneIndex)
+                return state;
 
             // remove moving ad
             const newState = [

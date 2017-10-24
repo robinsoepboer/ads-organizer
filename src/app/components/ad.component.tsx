@@ -1,36 +1,20 @@
 import * as React from 'react';
-import { ContextMenuProvider, ContextMenu, Item, Separator, IconFont } from 'react-contexify';
 import Ad from '../models/ad';
 import Store from '../app.store';
 import TextareaAutosize from 'react-autosize-textarea';
 import { updateAd } from '../actions';
 import { AdContextMenuComponent } from './ad-contextmenu.component';
-import { DragSource } from 'react-dnd';
+import { AdDraggableZoneComponent } from './ad-draggablezone.component';
 
 interface IProps {
     ad: Ad;
     listId: number;
-    connectDragSource?: any;
-    isDragging?: boolean;
 }
 
-const adSource = {
-    beginDrag(props) {
-        return {
-            adId: props.ad.id,
-            listId: props.listId,
-        };
-    },
-};
-
-@DragSource('Ad', adSource, (connect, monitor) => ({
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging(),
-}))
 export class AdComponent extends React.Component<IProps, {}> {
     public render(): JSX.Element {
-        return this.props.connectDragSource(
-            <div className="ad" style={{opacity: this.props.isDragging ? 0.5 : 1}}>
+        return (
+            <AdDraggableZoneComponent adId={this.props.ad.id} listId={this.props.listId}>
                 <div className="info">
                     <a href={this.props.ad.link}> Original Ad</a>
                     <input value={this.props.ad.title}
@@ -45,7 +29,8 @@ export class AdComponent extends React.Component<IProps, {}> {
                         value={this.props.ad.description}>
                     </TextareaAutosize>
                 </div>
-            </div>);
+            </AdDraggableZoneComponent>
+        );
     }
 
     private handleDescriptionChanges(event) {
