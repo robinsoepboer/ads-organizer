@@ -1,5 +1,6 @@
 import * as React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 import AdsList from '../models/adsList';
 import Store from '../app.store';
@@ -21,13 +22,15 @@ export class AddListComponent extends React.Component<{}, IState> {
     public render(): JSX.Element {
         return (
             <div id="add-list-form">
-                <h2>add list</h2>
-                <div className="form-group">
-                    <label htmlFor="list-title">Title:</label>
-                    <input id="list-title" type="text"
-                        value={this.state.title}
-                        onChange={(event) => this.setState({ title: event.target.value })} />
-                </div>
+                <h2>Add List</h2>
+                <TextField
+                    id="list-title"
+                    className="txt"
+                    hintText="Title..."
+                    fullWidth
+                    value={this.state.title}
+                    onChange={(event) => this.setState({ title: event.target.value })}
+                />
                 <RaisedButton primary label="add" className="btn" onClick={() => this.handleClick()} />
             </div>
         );

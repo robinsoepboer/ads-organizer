@@ -1,5 +1,8 @@
 import * as React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import Ad from '../models/ad';
 import AdsService from '../services/ads.service';
@@ -39,24 +42,22 @@ export class AddAdComponent extends React.Component<IProps, IState> {
         return (
             <div id="manual-add-form">
                 <h2>Add Ad</h2>
-                <div className="form-group">
-                    <label htmlFor="ad-title">Title:</label>
-                    <input id="ad-title" type="text"
-                        value={this.state.title}
-                        onChange={(event) => this.setState({ title: event.target.value })}
-                        onKeyDown={(event) => this.AddTestDataToApplication(event)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="ad-link">Link:</label>
-                    <input id="ad-link" type="text"
-                        value={this.state.link}
-                        onChange={(event) => this.setState({ link: event.target.value })} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="ad-list-id">List:</label>
-                    {this.renderListSelect()}
-                </div>
+                <TextField
+                    id="ad-title"
+                    hintText="Title..."
+                    value={this.state.title}
+                    fullWidth
+                    onChange={(event) => this.setState({ title: event.target.value })}
+                    onKeyDown={(event) => this.AddTestDataToApplication(event)}
+                />
+                <TextField
+                    id="ad-link"
+                    hintText="Link..."
+                    fullWidth
+                    value={this.state.link}
+                    onChange={(event) => this.setState({ link: event.target.value })}
+                />
+                {this.renderListSelect()}
                 <RaisedButton primary label="add" className="btn" onClick={() => this.handleClick()} />
                 {this.renderOrganizerLink()}
             </div>
@@ -70,17 +71,21 @@ export class AddAdComponent extends React.Component<IProps, IState> {
         if (adsLists) {
             listItems = adsLists.map((item) => {
                 return (
-                    <option key={item.id} value={item.id}>{item.title}</option>
+                    <MenuItem key={item.id} value={item.id} primaryText={item.title} />
                 );
             });
         }
 
         return (
-            <select id="ad-list-id"
+            <SelectField
+                id="ad-list-id"
+                hintText="List..."
+                fullWidth
                 value={this.state.listId}
-                onChange={(event) => this.setState({ listId: Number(event.target.value) })}>
+                onChange={(event, index, value) => this.setState({ listId: Number(value) }) }
+            >
                 {listItems}
-            </select>
+            </SelectField>
         );
     }
 
