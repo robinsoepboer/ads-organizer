@@ -2,6 +2,7 @@ import './app.file-imports';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import * as ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Organizer from './components/organizer.component';
 import { AddAdComponent } from './components/add-ad.component';
@@ -17,9 +18,11 @@ const bootstrapReact = (selector: string, appComponent: JSX.Element) => {
 
     ReactDOM.render(
         <div>
-            <Provider store={Store}>
-                {appComponent}
-            </Provider>
+            <MuiThemeProvider>
+                <Provider store={Store}>
+                    {appComponent}
+                </Provider>
+            </MuiThemeProvider>
         </div>,
         element,
     );

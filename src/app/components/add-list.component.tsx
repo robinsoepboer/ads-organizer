@@ -1,4 +1,6 @@
 import * as React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+
 import AdsList from '../models/adsList';
 import Store from '../app.store';
 import { createList } from '../actions';
@@ -26,7 +28,7 @@ export class AddListComponent extends React.Component<{}, IState> {
                         value={this.state.title}
                         onChange={(event) => this.setState({ title: event.target.value })} />
                 </div>
-                <button onClick={() => this.handleClick()}>add</button>
+                <RaisedButton primary label="add" className="btn" onClick={() => this.handleClick()} />
             </div>
         );
     }

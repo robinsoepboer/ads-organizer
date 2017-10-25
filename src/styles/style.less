@@ -2,6 +2,10 @@ html {
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+}
+
 *, *:before, *:after {
     box-sizing: inherit;
 }
@@ -15,7 +19,8 @@ html {
 }
 
 #add-forms {
-    display:flex;   
+    display:flex;
+    margin: 10px; 
 }
 
 #manual-add-form, #add-list-form {
@@ -25,7 +30,7 @@ html {
     margin-bottom:20px;
     margin-right:40px;
 
-    button {
+    .btn {
         align-self: flex-end;
     }
 }
@@ -33,6 +38,7 @@ html {
 #ads-lists {
     display: flex;
     flex-wrap: wrap;
+    margin:10px;
 
     .ads-list {
         max-width:600px;

@@ -6,6 +6,7 @@
         "serve": "webpack-dev-server --open --watch"
     },
     "dependencies": {
+        "material-ui": "^0.19.4",
         "react": "^16.0.0",
         "react-autosize-textarea": "^0.4.9",
         "react-contexify": "^2.1.4",

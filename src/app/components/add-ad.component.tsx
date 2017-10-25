@@ -1,4 +1,6 @@
 import * as React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+
 import Ad from '../models/ad';
 import AdsService from '../services/ads.service';
 import Store from '../app.store';
@@ -55,7 +57,7 @@ export class AddAdComponent extends React.Component<IProps, IState> {
                     <label htmlFor="ad-list-id">List:</label>
                     {this.renderListSelect()}
                 </div>
-                <button onClick={() => this.handleClick()}>add</button>
+                <RaisedButton primary label="add" className="btn" onClick={() => this.handleClick()} />
                 {this.renderOrganizerLink()}
             </div>
         );

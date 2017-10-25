@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import AppBar from 'material-ui/AppBar';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -36,6 +37,7 @@ class OrganizerComponent extends React.Component<any, any> {
 
         return (
             <div>
+                <AppBar title="Ads Organizer" />
                 <div id="add-forms">
                     <AddAdComponent organizerLink={false} />
                     <AddListComponent />
