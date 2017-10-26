@@ -40,7 +40,6 @@ class OrganizerComponent extends React.Component<any, any> {
             <div>
                 <AppBar title="Ads Organizer" />
                 <div id="add-forms">
-                    <AddAdComponent organizerLink={false} />
                     <AddListComponent />
                 </div>
                 <div id="ads-lists">

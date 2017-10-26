@@ -3,6 +3,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 
 import Ad from '../models/ad';
 import AdsService from '../services/ads.service';
@@ -11,6 +13,9 @@ import { createAd } from '../actions/index';
 
 interface IProps {
     organizerLink: boolean;
+    dialog: boolean;
+    showDialog?: boolean;
+    hideDialog?: () => void;
 }
 
 interface IState {
@@ -39,9 +44,39 @@ export class AddAdComponent extends React.Component<IProps, IState> {
     }
 
     public render(): JSX.Element {
+        if (this.props.dialog) {
+            const actions = [
+                <FlatButton
+                  label="Cancel"
+                  primary={true}
+                  onClick={() => this.props.hideDialog()}
+                />,
+                <FlatButton
+                  label="Submit"
+                  primary={true}
+                  keyboardFocused={true}
+                  onClick={() => this.handleClick()}
+                />,
+              ];
+
+            return (
+                <Dialog
+                    title="Ad"
+                    modal={true}
+                    actions={actions}
+                    open={this.props.showDialog}
+                    onRequestClose={() => this.props.hideDialog() }
+                >
+                    {this.renderContent()}
+                </Dialog>
+            );
+        }
+        return this.renderContent();
+    }
+
+    private renderContent(): JSX.Element {
         return (
-            <div id="manual-add-form">
-                <h2>Add Ad</h2>
+            <div id="manual-add-dialog">
                 <TextField
                     id="ad-title"
                     hintText="Title..."
@@ -58,7 +93,12 @@ export class AddAdComponent extends React.Component<IProps, IState> {
                     onChange={(event) => this.setState({ link: event.target.value })}
                 />
                 {this.renderListSelect()}
-                <RaisedButton primary label="add" className="btn" onClick={() => this.handleClick()} />
+
+                {
+                    !this.props.dialog &&
+                    <RaisedButton primary label="add" className="btn" onClick={() => this.handleClick()} />
+                }
+
                 {this.renderOrganizerLink()}
             </div>
         );
@@ -82,7 +122,7 @@ export class AddAdComponent extends React.Component<IProps, IState> {
                 hintText="List..."
                 fullWidth
                 value={this.state.listId}
-                onChange={(event, index, value) => this.setState({ listId: Number(value) }) }
+                onChange={(event, index, value) => this.setState({ listId: Number(value) })}
             >
                 {listItems}
             </SelectField>
@@ -101,6 +141,7 @@ export class AddAdComponent extends React.Component<IProps, IState> {
     private handleClick(): void {
         createAd(new Ad(this.state.title, this.state.link), this.state.listId);
         this.setState({ title: '', link: '' });
+        this.props.hideDialog();
     }
 
     private goToOrganizer(): void {

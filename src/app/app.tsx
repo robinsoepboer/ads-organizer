@@ -29,4 +29,4 @@ const bootstrapReact = (selector: string, appComponent: JSX.Element) => {
 };
 
 bootstrapReact('organizer', <Organizer />);
-bootstrapReact('browser-action', <AddAdComponent organizerLink={true} />);
+bootstrapReact('browser-action', <AddAdComponent organizerLink={true} dialog={false} />);
