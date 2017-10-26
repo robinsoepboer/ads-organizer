@@ -24,7 +24,7 @@ interface IState {
     listId: number;
 }
 
-export class AddAdComponent extends React.Component<IProps, IState> {
+export default class AddAdComponent extends React.Component<IProps, IState> {
     constructor(props: {}, context: any) {
         super();
 
@@ -47,25 +47,25 @@ export class AddAdComponent extends React.Component<IProps, IState> {
         if (this.props.dialog) {
             const actions = [
                 <FlatButton
-                  label="Cancel"
-                  primary={true}
-                  onClick={() => this.props.hideDialog()}
+                    label="Cancel"
+                    primary={true}
+                    onClick={() => this.props.hideDialog()}
                 />,
                 <FlatButton
-                  label="Submit"
-                  primary={true}
-                  keyboardFocused={true}
-                  onClick={() => this.handleClick()}
+                    label="Add"
+                    primary={true}
+                    keyboardFocused={true}
+                    onClick={() => this.handleClick()}
                 />,
-              ];
+            ];
 
             return (
                 <Dialog
-                    title="Ad"
+                    title="New Ad"
                     modal={true}
                     actions={actions}
                     open={this.props.showDialog}
-                    onRequestClose={() => this.props.hideDialog() }
+                    onRequestClose={() => this.props.hideDialog()}
                 >
                     {this.renderContent()}
                 </Dialog>

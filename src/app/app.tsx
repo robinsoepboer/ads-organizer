@@ -5,7 +5,7 @@ import * as ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Organizer from './components/organizer.component';
-import { AddAdComponent } from './components/add-ad.component';
+import AddAdComponent from './components/add-ad.component';
 import Ad from './models/ad';
 import Store from './app.store';
 

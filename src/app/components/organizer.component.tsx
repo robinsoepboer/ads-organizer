@@ -5,8 +5,6 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import { AdsComponent } from './ads.component';
-import { AddAdComponent } from './add-ad.component';
-import { AddListComponent } from './add-list.component';
 import { AdsDropZoneComponent } from './ads-dropzone.component';
 import SpeedDialComponent from './speed-dial.component';
 
@@ -39,9 +37,6 @@ class OrganizerComponent extends React.Component<any, any> {
         return (
             <div>
                 <AppBar title="Ads Organizer" />
-                <div id="add-forms">
-                    <AddListComponent />
-                </div>
                 <div id="ads-lists">
                     <AdsDropZoneComponent insertedAfter={0} />
                     {listItems}
