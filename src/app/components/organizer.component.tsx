@@ -8,6 +8,7 @@ import { AdsComponent } from './ads.component';
 import { AddAdComponent } from './add-ad.component';
 import { AddListComponent } from './add-list.component';
 import { AdsDropZoneComponent } from './ads-dropzone.component';
+import SpeedDialComponent from './speed-dial.component';
 
 import AdsList from '../models/adsList';
 import Ad from '../models/ad';
@@ -46,6 +47,7 @@ class OrganizerComponent extends React.Component<any, any> {
                     <AdsDropZoneComponent insertedAfter={0} />
                     {listItems}
                 </div>
+                <SpeedDialComponent />
             </div>
         );
     }
