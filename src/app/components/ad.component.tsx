@@ -18,7 +18,7 @@ export class AdComponent extends React.Component<IProps, {}> {
         return (
             <AdDraggableZoneComponent adId={this.props.ad.id} listId={this.props.listId}>
                 <Card>
-                    <CardTitle className="info">
+                    <CardTitle className="info" style={{paddingBottom: 0}}>
                         <FlatButton href={this.props.ad.link}
                             secondary
                             className="original-ad-button">
@@ -30,8 +30,10 @@ export class AdComponent extends React.Component<IProps, {}> {
                             className="ad-title"></TextField>
                         <AdContextMenuComponent adId={this.props.ad.id} listId={this.props.listId} />
                     </CardTitle>
-                    <CardText className="text-area-parent">
-                        <TextField className="description"
+                    <CardText className="text-area-parent" style={{paddingTop: 0}}>
+                        <TextField
+                            id="ads-description-field"
+                            className="description"
                             placeholder="description..."
                             multiLine={true}
                             textareaStyle={{ fontSize: 12 }}
