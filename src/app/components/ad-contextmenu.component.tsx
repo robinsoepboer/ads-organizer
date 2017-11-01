@@ -1,6 +1,10 @@
 import * as React from 'react';
 import SweetAlert from 'sweetalert-react';
-import { ContextMenu, ContextMenuProvider, IconFont, Item, Separator } from 'react-contexify';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import { deleteAd } from '../actions';
 
 interface IProps {
@@ -23,16 +27,12 @@ export class AdContextMenuComponent extends React.Component<IProps, IState> {
     public render(): JSX.Element {
         return (
             <div>
-                <ContextMenuProvider
-                    id={this.contextMenuId()}
-                    className="context-provider"
-                    event="onClick"
-                >
-                    <button className="btn-transparent">
-                        <i className="material-icons">more_vert</i>
-                    </button>
-                </ContextMenuProvider>
-                {this.renderContextMenu()}
+                <IconMenu className="context-provider" iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}>
+                    <MenuItem
+                        primaryText="Delete"
+                        leftIcon={<DeleteIcon />}
+                        onClick={() => this.openConfirmDialog()} />
+                </IconMenu>
                 <SweetAlert
                     show={this.state.showDeleteConfim}
                     showCancelButton
@@ -47,17 +47,6 @@ export class AdContextMenuComponent extends React.Component<IProps, IState> {
         );
     }
 
-    private renderContextMenu(): JSX.Element {
-        return (
-            <ContextMenu id={this.contextMenuId()}>
-                <Item onClick={() => this.openConfirmDialog()}>
-                    <IconFont className="material-icons">delete</IconFont>
-                    delete
-                </Item>
-            </ContextMenu>
-        );
-    }
-
     private openConfirmDialog(): void {
         setTimeout(() => {
             this.setState({ showDeleteConfim: true });
@@ -69,9 +58,5 @@ export class AdContextMenuComponent extends React.Component<IProps, IState> {
             this.setState({ showDeleteConfim: false });
             deleteAd(this.props.adId, this.props.listId);
         }, 0);
-    }
-
-    private contextMenuId(): string {
-        return 'ad-context-menu-' + this.props.listId + '-' + this.props.adId;
     }
 }
