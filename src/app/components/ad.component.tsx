@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import Ad from '../models/ad';
 import Store from '../app.store';
-import TextareaAutosize from 'react-autosize-textarea';
 import { updateAd } from '../actions';
 import { AdContextMenuComponent } from './ad-contextmenu.component';
 import { AdDraggableZoneComponent } from './ad-draggablezone.component';
@@ -15,20 +17,29 @@ export class AdComponent extends React.Component<IProps, {}> {
     public render(): JSX.Element {
         return (
             <AdDraggableZoneComponent adId={this.props.ad.id} listId={this.props.listId}>
-                <div className="info">
-                    <a href={this.props.ad.link}> Original Ad</a>
-                    <input value={this.props.ad.title}
-                        onChange={(event) => this.handleTitleChanges(event)}></input>
-                    <AdContextMenuComponent adId={this.props.ad.id} listId={this.props.listId} />
-                </div>
-                <div className="text-area-parent">
-                    <TextareaAutosize
-                        className="description"
-                        placeholder="description..."
-                        onChange={(event) => this.handleDescriptionChanges(event)}
-                        value={this.props.ad.description}>
-                    </TextareaAutosize>
-                </div>
+                <Card>
+                    <CardTitle className="info">
+                        <FlatButton href={this.props.ad.link}
+                            secondary
+                            className="original-ad-button">
+                            Original Ad
+                        </FlatButton>
+                        <TextField id="ad-title-input"
+                            value={this.props.ad.title}
+                            onChange={(event) => this.handleTitleChanges(event)}
+                            className="ad-title"></TextField>
+                        <AdContextMenuComponent adId={this.props.ad.id} listId={this.props.listId} />
+                    </CardTitle>
+                    <CardText className="text-area-parent">
+                        <TextField className="description"
+                            placeholder="description..."
+                            multiLine={true}
+                            textareaStyle={{ fontSize: 12 }}
+                            onChange={(event) => this.handleDescriptionChanges(event)}
+                            value={this.props.ad.description}>
+                        </TextField>
+                    </CardText>
+                </Card>
             </AdDraggableZoneComponent>
         );
     }

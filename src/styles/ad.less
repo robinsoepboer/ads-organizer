@@ -3,32 +3,22 @@
 .ad {
     padding: 10px 0;
 
-    input {
-        flex-grow: 1;
-        padding: 0;
-        border: 0;
-        .text-ellipsis;
-    }
-
     .info {
         display: flex;
-        margin-bottom:5px;
-        
-        a {
-            text-decoration: none;
-            color: white;
-            border-radius: 20px;
-            background-color: #3F51B5;
-            padding: 3px 10px;
-            font-size: 12px;
-            text-transform: lowercase;
-            font-family: arial;
-            height: 20px;
-            min-width: 76px;
-            margin-right:20px;
 
-            &:hover {
-                background-color: #3949AB;
+        .original-ad-button {
+            margin-right:10px !important;
+        }
+
+        .ad-title {
+            flex-grow: 1;
+            padding: 0;
+            height:auto !important;
+            border: 0;
+            margin-right:10px !important;
+            
+            input {
+                .text-ellipsis;
             }
         }
     }
