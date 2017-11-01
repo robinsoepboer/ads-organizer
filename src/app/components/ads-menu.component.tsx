@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { ContextMenuProvider, ContextMenu, Item, Separator, IconFont } from 'react-contexify';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import EditIcon from 'material-ui/svg-icons/image/edit';
 import SweetAlert from 'sweetalert-react';
 
 interface IState {
@@ -26,17 +31,21 @@ export class AdsContextMenuComponent extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
         return (
-            <div className="ads-contextmenu-component">
-                <ContextMenuProvider
-                    id={this.contextMenuId()}
+            <div className="ads-menu-component">
+                <IconMenu
                     className="context-provider"
-                    event="onClick"
+                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                    iconStyle={{ width: 20, height: 20 }}
                 >
-                    <button className="btn-transparent">
-                        <i className="material-icons">more_vert</i>
-                    </button>
-                </ContextMenuProvider>
-                {this.renderContextMenu()}
+                    <MenuItem
+                        primaryText="Edit"
+                        leftIcon={<EditIcon />}
+                        onClick={() => this.props.makeEditable()} />
+                    <MenuItem
+                        primaryText="Delete"
+                        leftIcon={<DeleteIcon />}
+                        onClick={() => this.openConfirmDialog()} />
+                </IconMenu>
                 <SweetAlert
                     show={this.state.showDeleteConfim}
                     showCancelButton
@@ -52,21 +61,6 @@ export class AdsContextMenuComponent extends React.Component<IProps, IState> {
                     onCancel={() => this.setState({ showDeleteConfim: false })}
                 />
             </div>
-        );
-    }
-
-    private renderContextMenu(): JSX.Element {
-        return (
-            <ContextMenu id={this.contextMenuId()}>
-                <Item onClick={() => this.props.makeEditable()}>
-                    <IconFont className="material-icons">edit</IconFont>
-                    Edit
-                </Item>
-                <Item onClick={() => this.openConfirmDialog()}>
-                    <IconFont className="material-icons">delete</IconFont>
-                    delete
-                </Item>
-            </ContextMenu>
         );
     }
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AdComponent } from './ad.component';
 import AdsList from '../models/adsList';
 import { updateList, deleteList } from '../actions';
-import { AdsContextMenuComponent } from './ads-contextmenu.component';
+import { AdsContextMenuComponent } from './ads-menu.component';
 import { AdDropZoneComponent } from './ad-dropzone.component';
 import { AdsDraggableZoneComponent } from './ads-draggablezone.component';
 

@@ -26,8 +26,12 @@ export class AdContextMenuComponent extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
         return (
-            <div>
-                <IconMenu className="context-provider" iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}>
+            <div className="ad-menu-component">
+                <IconMenu
+                    className="context-provider"
+                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                    iconStyle={{ width: 20, height: 20 }}
+                >
                     <MenuItem
                         primaryText="Delete"
                         leftIcon={<DeleteIcon />}
