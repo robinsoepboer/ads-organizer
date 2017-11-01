@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import Ad from '../models/ad';
 import Store from '../app.store';
 import { updateAd } from '../actions';
-import { AdContextMenuComponent } from './ad-contextmenu.component';
+import { AdContextMenuComponent } from './ad-menu.component';
 import { AdDraggableZoneComponent } from './ad-draggablezone.component';
 
 interface IProps {
