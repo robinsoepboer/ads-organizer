@@ -5,6 +5,8 @@ export default class AppState {
     public adsLists: AdsList[];
 
     constructor() {
-        this.adsLists = [];
+        this.adsLists = [
+            new AdsList(1, 'default - ads list'),
+        ];
     }
 }

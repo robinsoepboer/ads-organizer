@@ -14,6 +14,8 @@ async function getAsyncData(): Promise<any> {
     return await adsService.get().then((appState) => {
         if (appState && !isEmptyObject(appState)) {
             dataRetrievedFromStorage(appState as AppState);
+        } else {
+            dataRetrievedFromStorage(new AppState());
         }
     });
 }
