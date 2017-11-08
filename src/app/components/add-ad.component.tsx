@@ -76,7 +76,7 @@ export default class AddAdComponent extends React.Component<IProps, IState> {
 
     private renderContent(): JSX.Element {
         return (
-            <div id="manual-add-dialog">
+            <div id="add-ad-form">
                 <TextField
                     id="ad-title"
                     hintText="Title..."
@@ -132,7 +132,7 @@ export default class AddAdComponent extends React.Component<IProps, IState> {
     private renderOrganizerLink(): JSX.Element {
         if (this.props.organizerLink) {
             return (
-                <a id="organizer-link" onClick={() => this.goToOrganizer()}>Go to organizer</a>
+                <a id="organizer-link" href="/index.html" onClick={() => this.goToOrganizer()}>Go to organizer</a>
             );
         }
         return;

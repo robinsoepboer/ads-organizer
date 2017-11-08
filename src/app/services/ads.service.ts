@@ -18,7 +18,7 @@ export default class AdsService {
             if (chrome && chrome.storage) {
                 chrome.storage.local.get((data) => {
                     if (data)
-                        resolve(data.appState);
+                        resolve(data[this.configService.config.StorageKey]);
                     else
                         resolve(data);
                 });
@@ -38,7 +38,7 @@ export default class AdsService {
         // if the 'chrome' and 'chrome.storage' object are defined then the app is run as
         // browser extension so save data in 'chrome.storage'
         if (chrome && chrome.storage) {
-            chrome.storage.local.set({ storageKey: state });
+            chrome.storage.local.set({ [storageKey]: state });
         } else {
             // fallback on localStorage
             localStorage.setItem(storageKey, JSON.stringify(state));
@@ -47,12 +47,12 @@ export default class AdsService {
 
     public saveTestData(): void {
         const storageKey = this.configService.config.StorageKey;
-        const testData = require('../../../test-data.json');
+        const testData = require('../../../test-data.json') as AppState;
 
         // if the 'chrome' and 'chrome.storage' object are defined then the app is run as
         // browser extension so save data in 'chrome.storage'
         if (chrome && chrome.storage) {
-            chrome.storage.local.set({ storageKey: testData });
+            chrome.storage.local.set({ [storageKey]: testData });
         } else {
             // else fallback on localStorage
             localStorage.setItem(storageKey, JSON.stringify(testData));
